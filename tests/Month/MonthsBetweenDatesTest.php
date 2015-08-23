@@ -6,62 +6,36 @@ use \DateTime;
 
 class MonthsBetweenDatesTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var MonthsBetweenDatesDates */
-    private $object;
-
-    protected function setUp()
+    public function testShouldLoadMonthNumberAndYear()
     {
-        $this->object = new MonthsBetweenDates();
+        $march = $this->getMonths('2013-02', '2013-04')[1];
+        assertThat($march->monthNumber, is(3));
+        assertThat($march->year, is(2013));
     }
 
-    public function testTwoMonthsBetweenOctoberAndNovember()
+    /** @dataProvider provideDateInterval */
+    public function testShouldLoadMonthsBetweenTwoDates($start, $end, $expectedMonthsCount)
     {
-        $start = $this->createDate(10, 2013);
-        $end = $this->createDate(11, 2013);
-        $this->assertNumberOfMonths(2, $start, $end);
+        assertThat($this->getMonths($start, $end), arrayWithSize($expectedMonthsCount));
     }
 
-    public function testTwoMonthsBetweenDecemberAndJanuary()
+    public function provideDateInterval()
     {
-        $start = $this->createDate(12, 2013);
-        $end = $this->createDate(1, 2014);
-        $this->assertNumberOfMonths(2, $start, $end);
+        return [
+            ['2013-10', '2013-11', 2],
+            ['2013-12', '2014-01', 2],
+            ['2014-01', '2014-01', 1],
+            ['2013-01', '2013-12', 12],
+            ['2013-08', '2015-02', 19],
+            ['2013-01', '2015-12', 36],
+        ];
     }
 
-    public function testOneMonthBetweenDatesFromSameMonth()
+    private function getMonths($startDate, $endDate)
     {
-        $start = $this->createDate(1, 2014);
-        $end = $this->createDate(1, 2014);
-        $this->assertNumberOfMonths(1, $start, $end);
-    }
-
-    public function test36monthsBetweenJanuary2013andDecember2015()
-    {
-        $start = $this->createDate(1, 2013);
-        $end = $this->createDate(12, 2015);
-        $this->assertNumberOfMonths(36, $start, $end);
-    }
-
-    private function assertNumberOfMonths($expectedMonthsCount, $start, $end)
-    {
-        $months = $this->object->getMonths($start, $end);
-        parent::assertEquals($expectedMonthsCount, count($months));
-    }
-
-    public function testMarchIsBetweenFebruaryAndApril()
-    {
-        $start = $this->createDate(2, 2013);
-        $end = $this->createDate(4, 2013);
-
-        $months = $this->object->getMonths($start, $end);
-        $march = $months[1];
-
-        parent::assertEquals(3, $march->monthNumber);
-        parent::assertEquals(2013, $march->year);
-    }
-
-    private function createDate($month, $year)
-    {
-        return DateTime::createFromFormat('n/Y', "{$month}/{$year}");
+        $start = DateTime::createFromFormat('Y-m', $startDate);
+        $end = DateTime::createFromFormat('Y-m', $endDate);
+        $uc = new MonthsBetweenDates();
+        return $uc->getMonths($start, $end);
     }
 }

@@ -18,21 +18,11 @@ class MonthsBetweenDates
     public function getMonths(DateTime $startDate, DateTime $endDate)
     {
         $this->months = array();
-        $this->setFirstMonth($startDate);
-        $this->setLastMonth($endDate);
+        $this->firstMonth = Month::fromDatetime($startDate);
+        $this->lastMonth = Month::fromDatetime($endDate);
         $this->calculateYearDifference();
         $this->loadMonths();
         return $this->months;
-    }
-
-    private function setFirstMonth($startDate)
-    {
-        $this->firstMonth = Month::fromDatetime($startDate);
-    }
-
-    private function setLastMonth($endDate)
-    {
-        $this->lastMonth = Month::fromDatetime($endDate);
     }
 
     private function calculateYearDifference()
@@ -54,16 +44,8 @@ class MonthsBetweenDates
     private function addMonthsFromFirstYear()
     {
         $startMonth = $this->firstMonth->monthNumber;
-        $endMonth = $this->getEndMonthForFirstYear();
+        $endMonth = $this->areMonthsFromSameYear() ? $this->lastMonth->monthNumber : 12;
         $this->addMonths($this->firstMonth->year, $startMonth, $endMonth);
-    }
-
-    private function getEndMonthForFirstYear()
-    {
-        if ($this->areMonthsFromSameYear()) {
-            return $this->lastMonth->monthNumber;
-        }
-        return 12;
     }
 
     private function areMonthsFromSameYear()
