@@ -27,18 +27,4 @@ class EventTest extends \PHPUnit_Framework_TestCase
         $this->event->events = $events;
         parent::assertEquals($events, $this->event->unwrap());
     }
-
-    public function testToStringInstanceWithOneEvent()
-    {
-        $this->event = new Event('date');
-        $this->event->events[] = 'first';
-        parent::assertEquals('first', (string) $this->event);
-    }
-
-    public function testToStringInstanceWithTwoEvents()
-    {
-        $this->event = new Event('date');
-        $this->event->events = array('first', 'second');
-        parent::assertEquals('Array', (string) $this->event);
-    }
 }
