@@ -19,6 +19,11 @@ $months = \Scortes\Calendar\createMonthsInterval($dateStart, $dateEnd);
         </style>
     </head>
     <body>
+        <pre>&lt;?php
+$dateStart = new DateTime('now - 1 year');
+$dateEnd = new DateTime('now + 2 months');
+$months = \Scortes\Calendar\createMonthsInterval($dateStart, $dateEnd);
+</pre>
         
         <h1>Months <?php echo "from {$dateStart->format('Y-m-d')} to {$dateEnd->format('Y-m-d')}"; ?></h1>
         <table>

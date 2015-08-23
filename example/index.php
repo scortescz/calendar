@@ -23,6 +23,21 @@ $calendar = Scortes\Calendar\createCalendar($request);
     </head>
     <body>
         
+        <pre>&lt;?php
+$request = new \Scortes\Calendar\CalendarRequest();
+$request->dateStart = new DateTime('now - 2 month');
+$request->dateEnd = null; // use max date from events
+$request->events = [
+    "now - 1 month" => 'Day in previous month',
+    date('Y-n-') . 1 => 'First day in month',
+    date('Y-n-') . 16 => '16th day in month',
+    "now + 1 month" => 'Day in next month',
+];
+$request->addEvent(new DateTime('now + 2 months'), 'now + 2 months');
+
+$calendar = Scortes\Calendar\createCalendar($request);
+        </pre>
+        
         <h1>Calendar</h1>
         
         <h2>Today</h2>
