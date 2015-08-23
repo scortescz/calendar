@@ -19,7 +19,7 @@ $request->events = array(
 $request->eventsDelimiter = '-';
 
 $interactor = new \Scortes\Calendar\CalendarInteractor();
-$response = $interactor->execute($request);
+$response = $interactor($request);
 ?>
 <!DOCTYPE html>
 <html>

@@ -9,7 +9,7 @@ use Scortes\Calendar\Month\Analysis\MonthAnalyzer;
 use Scortes\Calendar\Month\MonthsBetweenDates;
 use Scortes\Calendar\Events\Events;
 
-class CalendarInteractor implements Calendar
+class CalendarInteractor
 {
     /** @var \Scortes\Calendar\Helpers\Today */
     private $today;
@@ -29,7 +29,8 @@ class CalendarInteractor implements Calendar
         $this->monthAnalyzer = new MonthAnalyzer();
     }
 
-    public function execute(CalendarRequest $request)
+    /** @return \Scortes\Calendar\CalendarResponse */
+    public function __invoke(CalendarRequest $request)
     {
         $response = new CalendarResponse();
         $response->today = $this->getToday();

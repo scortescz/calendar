@@ -67,7 +67,7 @@ class CalendarInteractorTest extends \PHPUnit_Framework_TestCase
 
     private function assertCalendarRequest(CalendarRequest $request, array $expectations)
     {
-        $this->response = $this->interactor->execute($request);
+        $this->response = $this->interactor->__invoke($request);
         $this->asserts->setCalendarResponse($this->response);
         $this->asserts->assertFirstMonthInCalendar($expectations['firstMonth']['m'], $expectations['firstMonth']['y']);
         $this->asserts->assertLastMonthInCalendar($expectations['lastMonth']['m'], $expectations['lastMonth']['y']);
@@ -120,7 +120,7 @@ class CalendarInteractorTest extends \PHPUnit_Framework_TestCase
     private function loadEventsResponse(array $events, $delimiter)
     {
         $request = $this->getEventsRequest($events, $delimiter);
-        $this->response = $this->interactor->execute($request);
+        $this->response = $this->interactor->__invoke($request);
         $this->asserts->setCalendarResponse($this->response);
     }
 
@@ -161,7 +161,7 @@ class CalendarInteractorTest extends \PHPUnit_Framework_TestCase
     private function loadAnalyzerResponse($dateStart, $dateEnd)
     {
         $request = $this->getAnalyzerRequest($dateStart, $dateEnd);
-        $this->response = $this->interactor->execute($request);
+        $this->response = $this->interactor->__invoke($request);
     }
 
     private function getAnalyzerRequest($dateStart, $dateEnd)
