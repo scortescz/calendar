@@ -7,23 +7,18 @@ use Prophecy\Argument as arg;
 
 class CreateCalendarTest extends \PHPUnit_Framework_TestCase
 {
-    private $interval;
-
-    protected function setUp()
-    {
-        $this->interval = $this->prophesize('Scortes\Calendar\Month\CreateMonthsInterval');
-    }
-
     /** @dataProvider provideDates */
     public function testShouldLoadMonthsAndEvents($dateStart, $dateEnd)
     {
-        $this->interval->__invoke(arg::cetera())->shouldBeCalled()->willReturn([]);
         $r = new CalendarRequest();
         $r->dateStart = $dateStart;
         $r->dateEnd = $dateEnd;
         $r->events = array('2013-9-5' => 'irrelevant event');
         $r->addEvent(new \DateTime(), 'another event');
-        $uc = new CreateCalendar($this->interval->reveal());
+
+        $interval = $this->prophesize('Scortes\Calendar\Month\CreateMonthsInterval');
+        $interval->__invoke(arg::cetera())->shouldBeCalled()->willReturn([]);
+        $uc = new CreateCalendar($interval->reveal());
         $uc($r);
     }
 
