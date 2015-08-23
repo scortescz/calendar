@@ -6,10 +6,10 @@ use \DateTime;
 use Prophecy\Argument as arg;
 use Scortes\Calendar\Events\Event;
 
-class CalendarInteractorTest extends \PHPUnit_Framework_TestCase
+class CreateCalendarTest extends \PHPUnit_Framework_TestCase
 {
     private $interval;
-    /** @var \Scortes\Calendar\CalendarResponse */
+    /** @var \Scortes\Calendar\Calendar */
     private $response;
 
     protected function setUp()
@@ -43,7 +43,7 @@ class CalendarInteractorTest extends \PHPUnit_Framework_TestCase
         $r->dateEnd = new DateTime('now');
         $r->events = $events;
         $r->eventsDelimiter = '-';
-        $uc = new CalendarInteractor($this->interval->reveal());
+        $uc = new CreateCalendar($this->interval->reveal());
         $this->response = $uc($r);
     }
 

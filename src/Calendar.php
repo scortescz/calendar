@@ -2,7 +2,7 @@
 
 namespace Scortes\Calendar;
 
-class CalendarResponse
+class Calendar
 {
     /** @var \Scortes\Calendar\Today */
     public $today;

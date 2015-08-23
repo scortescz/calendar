@@ -2,9 +2,9 @@
 
 namespace Scortes\Calendar;
 
-/** @return \Scortes\Calendar\CalendarResponse */
+/** @return \Scortes\Calendar\Calendar */
 function createCalendar(CalendarRequest $request)
 {
-    $uc = new CalendarInteractor(new Month\CreateMonthsInterval(new Month\AnalyzeMonth()));
+    $uc = new CreateCalendar(new Month\CreateMonthsInterval(new Month\AnalyzeMonth()));
     return $uc($request);
 }

@@ -5,7 +5,7 @@ namespace Scortes\Calendar;
 use Scortes\Calendar\Month\CreateMonthsInterval;
 use Scortes\Calendar\Events\Events;
 
-class CalendarInteractor
+class CreateCalendar
 {
     private $createInterval;
 
@@ -16,7 +16,7 @@ class CalendarInteractor
 
     public function __invoke(CalendarRequest $request)
     {
-        $response = new CalendarResponse();
+        $response = new Calendar();
         $response->today = new Today();
         $response->events = new Events($request->eventsDelimiter, $request->events);
         $response->months = $this->createInterval->__invoke($request->dateStart, $request->dateEnd);
