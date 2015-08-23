@@ -24,7 +24,7 @@ class CreateMonthsInterval
 
     public function __invoke(DateTime $startDate, DateTime $endDate)
     {
-        $this->months = array();
+        $this->months = [];
         $this->firstMonth = $this->monthFromDatetime($startDate);
         $this->lastMonth = $this->monthFromDatetime($endDate);
         $this->calculateYearDifference();

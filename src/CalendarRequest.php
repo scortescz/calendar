@@ -9,7 +9,7 @@ class CalendarRequest
     /** @var \DateTime|null */
     public $dateEnd;
     /** @var array[date => event] */
-    public $events = array();
+    public $events = [];
 
     public function addEvent(\DateTime $d, $event)
     {

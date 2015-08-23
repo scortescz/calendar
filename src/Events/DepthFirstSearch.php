@@ -20,12 +20,12 @@ class DepthFirstSearch implements \IteratorAggregate
 
     private function loadEmptyEvents()
     {
-        $this->events = array();
+        $this->events = [];
     }
 
     private function prepareStack($firstNode)
     {
-        $this->stack = array($firstNode);
+        $this->stack = [$firstNode];
     }
 
     public function getIterator()
@@ -43,7 +43,7 @@ class DepthFirstSearch implements \IteratorAggregate
 
     private function loadEvents()
     {
-        $this->events = array();
+        $this->events = [];
         while ($this->areEventsInStack()) {
             $this->processNextEvent();
         }

@@ -7,7 +7,7 @@ class EventNode
     /** @var \Scortes\Calendar\Events\Event */
     private $event;
     /** @var array */
-    private $subEvents = array();
+    private $subEvents = [];
 
     public function __construct($date)
     {

@@ -46,6 +46,6 @@ class Today
     {
         $isDayInMonth = $weekDay >= $month->firstDayOfWeek && $currentDay <= $month->daysCount;
         $isCurrentDay = $this->day == $currentDay;
-        return array($isDayInMonth, $isCurrentDay);
+        return [$isDayInMonth, $isCurrentDay];
     }
 }

@@ -7,10 +7,10 @@ use Scortes\Calendar\Month\Month;
 
 class AnalyzeMonth
 {
-    private static $englishMonths = array(
+    private static $englishMonths = [
         '', 'January', 'February', 'March', 'April', 'May', 'June',
         'July', 'August', 'September', 'October', 'November', 'December'
-    );
+    ];
     /** @var \DateTime */
     private $firstDay;
     /** @var \DateTime */

@@ -12,7 +12,7 @@ class Event
     public function __construct($date)
     {
         $this->date = $date;
-        $this->events = array();
+        $this->events = [];
     }
 
     public function unwrap()

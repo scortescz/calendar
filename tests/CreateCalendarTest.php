@@ -13,7 +13,7 @@ class CreateCalendarTest extends \PHPUnit_Framework_TestCase
         $r = new CalendarRequest();
         $r->dateStart = $dateStart;
         $r->dateEnd = $dateEnd;
-        $r->events = array('2013-9-5' => 'irrelevant event');
+        $r->events = ['2013-9-5' => 'irrelevant event'];
         $r->addEvent(new \DateTime(), 'another event');
 
         $interval = $this->prophesize('Scortes\Calendar\Month\CreateMonthsInterval');
