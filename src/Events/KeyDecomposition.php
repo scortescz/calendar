@@ -1,6 +1,6 @@
 <?php
 
-namespace Scortes\Calendar\Events\Helpers;
+namespace Scortes\Calendar\Events;
 
 class KeyDecomposition implements \IteratorAggregate
 {

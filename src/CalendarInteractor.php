@@ -19,18 +19,9 @@ class CalendarInteractor
     {
         $response = new CalendarResponse();
         $response->today = new Today();
-        $response->events = $this->getEvents($request->events, $request->eventsDelimiter);
+        $response->events = new Events($request->eventsDelimiter, $request->events);
         $response->months = $this->getMonths($request);
         return $response;
-    }
-
-    private function getEvents(array $inputEvents, $delimiter)
-    {
-        $events = new Events($delimiter);
-        foreach ($inputEvents as $date => $event) {
-            $events->set($date, $event);
-        }
-        return $events;
     }
 
     public function getMonths(CalendarRequest $request)
