@@ -171,7 +171,6 @@ class CalendarInteractorTest extends \PHPUnit_Framework_TestCase
         $request->dateEnd = new DateTime($dateEnd);
         $request->events = array();
         $request->eventsDelimiter = '-';
-        $request->analyzeMonths = true;
         return $request;
     }
 }

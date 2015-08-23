@@ -9,7 +9,6 @@ $nextMonth = $currentMonth + 1;
 $request = new \Scortes\Calendar\CalendarRequest();
 $request->dateStart = new DateTime('now - 1 month');
 $request->dateEnd = new DateTime('now + 1 month');
-$request->analyzeMonths = true;
 $request->events = array(
     "{$currentYear}-{$previousMonth}-10" => 'Day in previous month',
     "{$currentYear}-{$currentMonth}-1" => 'First day in month',

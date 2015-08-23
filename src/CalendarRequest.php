@@ -8,8 +8,6 @@ class CalendarRequest
     public $dateStart;
     /** @var \DateTime */
     public $dateEnd;
-    /** @var boolean */
-    public $analyzeMonths;
     /** @var array */
     public $events = array();
     /** @var string */
