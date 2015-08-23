@@ -65,7 +65,7 @@ class DepthFirstSearch implements \IteratorAggregate
     {
         $event = $removedEvent->getEvent();
         if ($event->events) {
-            $this->events[] = $event;
+            $this->events[] = $event->unwrap();
         }
     }
 

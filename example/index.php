@@ -90,7 +90,7 @@ $calendar = Scortes\Calendar\createCalendar($request);
             global $calendar;
             echo '<ul>';
             foreach ($calendar->events->iterate($key) as $event) {
-                echo "<li>{$event->date} - <strong>{$event->unwrap()}</strong></li>";
+                echo "<li>{$key} - <strong>{$event}</strong></li>";
             }
             echo '</ul>';
         }

@@ -66,13 +66,7 @@ class EventsTest extends \PHPUnit_Framework_TestCase
         $this->events->set('2011 12 20', '6');
         $this->events->set('2013 7 7 7 7', '7');
         $iterator = $this->events->iterate($startKey);
-        $iterated = array_map(
-            function (Event $e) {
-                return $e->unwrap();
-            },
-            iterator_to_array($iterator)
-        );
-        assertThat($iterated, identicalTo($expected));
+        assertThat(iterator_to_array($iterator), identicalTo($expected));
     }
 
     public function provideIterators()
