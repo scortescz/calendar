@@ -15,6 +15,13 @@ class CreateMonthsInterval
     /** @var array */
     private $months;
 
+    private $analyzeMonth;
+
+    public function __construct(AnalyzeMonth $a)
+    {
+        $this->analyzeMonth = $a;
+    }
+
     public function __invoke(DateTime $startDate, DateTime $endDate)
     {
         $this->months = array();
@@ -73,7 +80,9 @@ class CreateMonthsInterval
     private function addMonths($year, $startMonth, $endMonth)
     {
         for ($month = $startMonth; $month <= $endMonth; $month++) {
-            $this->months[] = new Month($month, $year);
+            $m = new Month($month, $year);
+            $this->analyzeMonth->__invoke($m);
+            $this->months[] = $m;
         }
     }
 }

@@ -4,26 +4,22 @@ namespace Scortes\Calendar;
 
 use \DateTime;
 use Prophecy\Argument as arg;
-use Scortes\Calendar\Month\Month;
 use Scortes\Calendar\Events\Event;
 
 class CalendarInteractorTest extends \PHPUnit_Framework_TestCase
 {
     private $interval;
-    private $analyzer;
     /** @var \Scortes\Calendar\CalendarResponse */
     private $response;
 
     protected function setUp()
     {
         $this->interval = $this->prophesize('Scortes\Calendar\Month\CreateMonthsInterval');
-        $this->analyzer = $this->prophesize('Scortes\Calendar\Month\AnalyzeMonth');
     }
 
-    public function testShouldLoadAnalyzedMonthsAndEvents()
+    public function testShouldLoadMonthsAndEvents()
     {
-        $this->interval->__invoke(arg::cetera())->shouldBeCalled()->willReturn([Month::dummy()]);
-        $this->analyzer->__invoke(arg::type('Scortes\Calendar\Month\Month'))->shouldBeCalled();
+        $this->interval->__invoke(arg::cetera())->shouldBeCalled()->willReturn([]);
         $events = array(
             '2013-9-5' => 'Shopping',
             '2013-10-6' => 'School exam',
@@ -47,7 +43,7 @@ class CalendarInteractorTest extends \PHPUnit_Framework_TestCase
         $r->dateEnd = new DateTime('now');
         $r->events = $events;
         $r->eventsDelimiter = '-';
-        $uc = new CalendarInteractor($this->interval->reveal(), $this->analyzer->reveal());
+        $uc = new CalendarInteractor($this->interval->reveal());
         $this->response = $uc($r);
     }
 

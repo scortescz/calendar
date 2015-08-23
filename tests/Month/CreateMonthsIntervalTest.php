@@ -3,12 +3,13 @@
 namespace Scortes\Calendar\Month;
 
 use \DateTime;
+use Prophecy\Argument;
 
 class CreateMonthsIntervalTest extends \PHPUnit_Framework_TestCase
 {
     public function testShouldLoadMonthNumberAndYear()
     {
-        $march = $this->getMonths('2013-02', '2013-04')[1];
+        $march = $this->testShouldLoadMonthsBetweenTwoDates('2013-02', '2013-04', 3)[1];
         assertThat($march->monthNumber, is(3));
         assertThat($march->year, is(2013));
     }
@@ -16,7 +17,15 @@ class CreateMonthsIntervalTest extends \PHPUnit_Framework_TestCase
     /** @dataProvider provideDateInterval */
     public function testShouldLoadMonthsBetweenTwoDates($start, $end, $expectedMonthsCount)
     {
-        assertThat($this->getMonths($start, $end), arrayWithSize($expectedMonthsCount));
+        $analyzer = $this->prophesize('Scortes\Calendar\Month\AnalyzeMonth');
+        $analyzer->__invoke(Argument::any())->shouldBeCalledTimes($expectedMonthsCount);
+        $uc = new CreateMonthsInterval($analyzer->reveal());
+        $months = $uc(
+            DateTime::createFromFormat('Y-m', $start),
+            DateTime::createFromFormat('Y-m', $end)
+        );
+        assertThat($months, arrayWithSize($expectedMonthsCount));
+        return $months;
     }
 
     public function provideDateInterval()
@@ -29,13 +38,5 @@ class CreateMonthsIntervalTest extends \PHPUnit_Framework_TestCase
             ['2013-08', '2015-02', 19],
             ['2013-01', '2015-12', 36],
         ];
-    }
-
-    private function getMonths($startDate, $endDate)
-    {
-        $start = DateTime::createFromFormat('Y-m', $startDate);
-        $end = DateTime::createFromFormat('Y-m', $endDate);
-        $uc = new CreateMonthsInterval();
-        return $uc($start, $end);
     }
 }
