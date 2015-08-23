@@ -174,24 +174,4 @@ class CalendarInteractorTest extends \PHPUnit_Framework_TestCase
         $request->analyzeMonths = true;
         return $request;
     }
-
-    public function testDeletingFirstAndLastMonthsWithoutEvents()
-    {
-        $request = new CalendarRequest();
-        $request->dateStart = new DateTime('2013-01-10');
-        $request->dateEnd = new DateTime('2013-12-10');
-        $request->events = array(
-            '2013-9-5' => 'Shopping',
-            '2013-10-30' => 'Vacations'
-        );
-        $request->eventsDelimiter = '-';
-        $request->deleteBoundaryMonthsWithoutEvents = true;
-
-        $expectations = array(
-            'monthsCount' => 2,
-            'firstMonth' => array('m' => 9, 'y' => 2013),
-            'lastMonth' => array('m' => 10, 'y' => 2013)
-        );
-        $this->assertCalendarRequest($request, $expectations);
-    }
 }

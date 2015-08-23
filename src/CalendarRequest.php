@@ -14,6 +14,4 @@ class CalendarRequest
     public $events = array();
     /** @var string */
     public $eventsDelimiter;
-    /** @var boolean */
-    public $deleteBoundaryMonthsWithoutEvents;
 }

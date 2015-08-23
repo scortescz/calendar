@@ -3,7 +3,6 @@
 namespace Scortes\Calendar;
 
 use Scortes\Calendar\Helpers\Today;
-use Scortes\Calendar\Helpers\CalendarBoundary;
 use Scortes\Calendar\Month\MonthFactory;
 use Scortes\Calendar\Month\Analysis\MonthAnalyzer;
 use Scortes\Calendar\Month\MonthsBetweenDates;
@@ -15,8 +14,6 @@ class CalendarInteractor
     private $today;
     /** @var \Scortes\Calendar\Month\MonthsBetweenDates */
     private $monthsBetween;
-    /** @var \Scortes\Calendar\Helpers\CalendarBoundary */
-    private $calendarBoundary;
     /** @var \Scortes\Calendar\Month\Analysis\MonthAnalyzer */
     private $monthAnalyzer;
 
@@ -25,7 +22,6 @@ class CalendarInteractor
         $this->today = new Today();
         $factory = new MonthFactory();
         $this->monthsBetween = new MonthsBetweenDates($factory);
-        $this->calendarBoundary = new CalendarBoundary();
         $this->monthAnalyzer = new MonthAnalyzer();
     }
 
@@ -35,7 +31,7 @@ class CalendarInteractor
         $response = new CalendarResponse();
         $response->today = $this->getToday();
         $response->events = $this->getEvents($request->events, $request->eventsDelimiter);
-        $response->months = $this->getMonths($request, $response->events);
+        $response->months = $this->getMonths($request);
         $response->monthsAnalyses = $this->getMonthsAnalyses($request, $response->months);
         return $response;
     }
@@ -54,14 +50,9 @@ class CalendarInteractor
         return new CalendarEvents($events);
     }
 
-    public function getMonths(CalendarRequest $request, CalendarEvents $events)
+    public function getMonths(CalendarRequest $request)
     {
         $months = $this->monthsBetween->getMonths($request->dateStart, $request->dateEnd);
-        if ($request->deleteBoundaryMonthsWithoutEvents) {
-            $this->calendarBoundary->setEvents($events);
-            $this->calendarBoundary->setEventsDelimiter($request->eventsDelimiter);
-            $months = $this->calendarBoundary->deleteBoundaryMonthsWithoutEvents($months, $events);
-        }
         return new CalendarMonths($months);
     }
 
