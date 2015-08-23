@@ -27,6 +27,11 @@ class Month
         return new self($month, $year);
     }
 
+    public static function dummy()
+    {
+        return new self('', '');
+    }
+
     public function __construct($monthNumber, $year)
     {
         $this->monthNumber = $monthNumber;

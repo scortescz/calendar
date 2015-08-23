@@ -17,7 +17,10 @@ $request->events = array(
 );
 $request->eventsDelimiter = '-';
 
-$interactor = new \Scortes\Calendar\CalendarInteractor();
+$interactor = new \Scortes\Calendar\CalendarInteractor(
+    new Scortes\Calendar\Month\MonthsBetweenDates(),
+    new Scortes\Calendar\Month\MonthAnalyzer()
+);
 $response = $interactor($request);
 ?>
 <!DOCTYPE html>

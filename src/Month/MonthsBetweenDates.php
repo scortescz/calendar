@@ -15,7 +15,7 @@ class MonthsBetweenDates
     /** @var array */
     private $months;
 
-    public function getMonths(DateTime $startDate, DateTime $endDate)
+    public function __invoke(DateTime $startDate, DateTime $endDate)
     {
         $this->months = array();
         $this->firstMonth = Month::fromDatetime($startDate);

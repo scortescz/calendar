@@ -11,10 +11,10 @@ class CalendarInteractor
     private $monthsBetween;
     private $monthAnalyzer;
 
-    public function __construct(MonthAnalyzer $a = null)
+    public function __construct(MonthsBetweenDates $b, MonthAnalyzer $a)
     {
-        $this->monthsBetween = new MonthsBetweenDates();
-        $this->monthAnalyzer = $a ?: new MonthAnalyzer();
+        $this->monthsBetween = $b;
+        $this->monthAnalyzer = $a;
     }
 
     /** @return \Scortes\Calendar\CalendarResponse */
@@ -41,7 +41,7 @@ class CalendarInteractor
 
     public function getMonths(CalendarRequest $request)
     {
-        $months = $this->monthsBetween->getMonths($request->dateStart, $request->dateEnd);
+        $months = $this->monthsBetween->__invoke($request->dateStart, $request->dateEnd);
         return new CalendarMonths($months);
     }
 }

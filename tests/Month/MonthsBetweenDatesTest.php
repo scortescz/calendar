@@ -36,6 +36,6 @@ class MonthsBetweenDatesTest extends \PHPUnit_Framework_TestCase
         $start = DateTime::createFromFormat('Y-m', $startDate);
         $end = DateTime::createFromFormat('Y-m', $endDate);
         $uc = new MonthsBetweenDates();
-        return $uc->getMonths($start, $end);
+        return $uc($start, $end);
     }
 }
