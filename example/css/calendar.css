@@ -1,0 +1,34 @@
+body {
+  background: #eee; }
+
+h1, h3 {
+  color: #00c; }
+
+table {
+  background: #fff;
+  border-spacing: 0;
+  border-collapse: collapse; }
+  table td, table th {
+    padding: 7px; }
+  table th {
+    background: #eee;
+    color: #aaa;
+    font-weight: normal;
+    font-size: 0.8em; }
+  table tr#currentWeek td {
+    background: bisque;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000; }
+    table tr#currentWeek td:first-of-type {
+      border-left: 1px solid #000; }
+    table tr#currentWeek td:last-child {
+      border-right: 1px solid #000; }
+    table tr#currentWeek td#today {
+      color: #fff;
+      background: #000; }
+  table td.noDay {
+    background: #eee; }
+  table td strong[title] {
+    color: #f00; }
+
+/*# sourceMappingURL=calendar.css.map */
