@@ -11,10 +11,10 @@ class CalendarInteractor
     private $monthsBetween;
     private $monthAnalyzer;
 
-    public function __construct()
+    public function __construct(MonthAnalyzer $a = null)
     {
         $this->monthsBetween = new MonthsBetweenDates();
-        $this->monthAnalyzer = new MonthAnalyzer();
+        $this->monthAnalyzer = $a ?: new MonthAnalyzer();
     }
 
     /** @return \Scortes\Calendar\CalendarResponse */
