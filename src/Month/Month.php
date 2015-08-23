@@ -11,6 +11,15 @@ class Month
     /** @var int */
     public $monthNumber;
 
+    /** @var int */
+    public $daysCount = 0;
+    /** @var int */
+    public $weeksCount = 0;
+    /** @var int */
+    public $firstDayOfWeek = 0;
+    /** @var int */
+    public $firstWeekNumber = 0;
+
     public static function fromDatetime(DateTime $date)
     {
         $month = (int) $date->format('n');

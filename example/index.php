@@ -51,19 +51,15 @@ $response = $interactor($request);
             $monthId = $isCurrentMonth ? ' id="currentMonth"' : '';
             echo "<h3{$monthId}>Month {$month->monthNumber}/{$month->year}</h3>";
 
-            $analysis = $response->monthsAnalyses[$id];
             $currentDay = 1;
             $emptyDate = 1;
             echo '<table>';
-            for ($week = 0; $week < $analysis->weeksCount; $week++) {
-                $isCurrentWeek = 
-                    ($analysis->firstWeekNumber + $week) == date('W') &&
-                    $response->today->monthNumber == $month->monthNumber &&
-                    $response->today->year == $month->year;
+            for ($week = 0; $week < $month->weeksCount; $week++) {
+                $isCurrentWeek = $isCurrentMonth && $response->today->weekNumber == ($month->firstWeekNumber + $week);
                 $weekId = $isCurrentWeek ? ' id="currentWeek"' : '';
                 echo "<tr{$weekId}>";
                 for ($day = 0; $day < 7; $day++) {
-                    $isDayInMonth = $emptyDate++ >= $analysis->firstDayOfWeek && $currentDay <= $analysis->daysCount;
+                    $isDayInMonth = $emptyDate++ >= $month->firstDayOfWeek && $currentDay <= $month->daysCount;
                     if ($isDayInMonth) {
                         $weekId = $isCurrentWeek && $currentDay == $response->today->day ? ' id="today"' : '';
                         echo "<td{$weekId}>";

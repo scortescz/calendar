@@ -10,6 +10,4 @@ class CalendarResponse
     public $months;
     /** @var \Scortes\Calendar\CalendarEvents */
     public $events;
-    /** @var array */
-    public $monthsAnalyses = array();
 }

@@ -24,7 +24,9 @@ class CalendarInteractor
         $response->today = new Today();
         $response->events = $this->getEvents($request->events, $request->eventsDelimiter);
         $response->months = $this->getMonths($request);
-        $response->monthsAnalyses = $this->getAnalyses($response->months);
+        foreach ($response->months as $m) {
+            $this->monthAnalyzer->__invoke($m);
+        }
         return $response;
     }
 
@@ -41,14 +43,5 @@ class CalendarInteractor
     {
         $months = $this->monthsBetween->getMonths($request->dateStart, $request->dateEnd);
         return new CalendarMonths($months);
-    }
-
-    private function getAnalyses($months)
-    {
-        $analyses = array();
-        foreach ($months as $m) {
-            $analyses[] = $this->monthAnalyzer->analyze($m);
-        }
-        return $analyses;
     }
 }

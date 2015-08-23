@@ -137,40 +137,21 @@ class CalendarInteractorTest extends \PHPUnit_Framework_TestCase
     public function testAnalyzeSeptember2013()
     {
         $this->loadAnalyzerResponse('2013-09-01', '2013-09-30');
-        $this->assertNumberOfAnalyzedMonths(1);
         
-        $september2013 = $this->response->monthsAnalyses[0];
-        parent::assertTrue($september2013 instanceof Month\MonthAnalysis);
+        $september2013 = $this->response->months->getFirstMonth();
         parent::assertEquals(30, $september2013->daysCount);
         parent::assertEquals(6, $september2013->weeksCount);
         parent::assertEquals(7, $september2013->firstDayOfWeek);
         parent::assertEquals(35, $september2013->firstWeekNumber);
     }
 
-    public function testAnalyzeAlMonthsIn2013()
-    {
-        $this->loadAnalyzerResponse('2013-01-10', '2013-12-30');
-        $this->assertNumberOfAnalyzedMonths(12);
-    }
-
-    private function assertNumberOfAnalyzedMonths($monthsCount)
-    {
-        parent::assertEquals($monthsCount, count($this->response->monthsAnalyses));
-    }
-
     private function loadAnalyzerResponse($dateStart, $dateEnd)
-    {
-        $request = $this->getAnalyzerRequest($dateStart, $dateEnd);
-        $this->response = $this->interactor->__invoke($request);
-    }
-
-    private function getAnalyzerRequest($dateStart, $dateEnd)
     {
         $request = new CalendarRequest();
         $request->dateStart = new DateTime($dateStart);
         $request->dateEnd = new DateTime($dateEnd);
         $request->events = array();
         $request->eventsDelimiter = '-';
-        return $request;
+        $this->response = $this->interactor->__invoke($request);
     }
 }

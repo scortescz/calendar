@@ -16,10 +16,13 @@ class MonthAnalyzer
     /** @var \DateTime */
     private $lastDay;
 
-    public function analyze(Month $month)
+    public function __invoke(Month $month)
     {
         $this->loadDays($month);
-        return $this->buildAnalysis();
+        $month->daysCount = $this->getDaysCount();
+        $month->weeksCount = $this->getWeeksCount();
+        $month->firstDayOfWeek = $this->getWeekDayNumber();
+        $month->firstWeekNumber = $this->getFirstWeekNumber();
     }
 
     private function loadDays($month)
@@ -27,16 +30,6 @@ class MonthAnalyzer
         $monthName = self::$englishMonths[$month->monthNumber];
         $this->firstDay = new DateTime("first day of {$monthName} {$month->year}");
         $this->lastDay = new DateTime("last day of {$monthName} {$month->year}");
-    }
-
-    private function buildAnalysis()
-    {
-        $analysis = new MonthAnalysis();
-        $analysis->daysCount = $this->getDaysCount();
-        $analysis->weeksCount = $this->getWeeksCount();
-        $analysis->firstDayOfWeek = $this->getWeekDayNumber();
-        $analysis->firstWeekNumber = $this->getFirstWeekNumber();
-        return $analysis;
     }
 
     private function getDaysCount()
