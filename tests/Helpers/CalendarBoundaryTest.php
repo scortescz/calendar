@@ -5,12 +5,8 @@ namespace Scortes\Calendar\Helpers;
 use Scortes\Calendar\Month\Month;
 use Scortes\Calendar\Events\Events;
 
-/**
- * @group helpers
- */
 class CalendarBoundaryTest extends \PHPUnit_Framework_TestCase
 {
-
     /** @var CalendarBoundary */
     private $object;
 

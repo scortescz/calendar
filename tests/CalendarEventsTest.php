@@ -5,9 +5,6 @@ namespace Scortes\Calendar;
 use Scortes\Calendar\Events\Events;
 use Scortes\Calendar\Events\EventsIteratorUtil;
 
-/**
- * @group calendar
- */
 class CalendarEventsTest extends \PHPUnit_Framework_TestCase
 {
     /** @var Events */

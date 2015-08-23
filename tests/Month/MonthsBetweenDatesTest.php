@@ -4,12 +4,8 @@ namespace Scortes\Calendar\Month;
 
 use \DateTime;
 
-/**
- * @group calendar
- */
 class MonthsBetweenDatesTest extends \PHPUnit_Framework_TestCase
 {
-
     /** @var MonthsBetweenDatesDates */
     private $object;
 

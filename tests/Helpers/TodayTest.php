@@ -4,9 +4,6 @@ namespace Scortes\Calendar\Helpers;
 
 use \DateTime;
 
-/**
- * @group helpers
- */
 class TodayTest extends \PHPUnit_Framework_TestCase
 {
     /** @var Today */

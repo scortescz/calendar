@@ -4,9 +4,6 @@ namespace Scortes\Calendar;
 
 use \DateTime;
 
-/**
- * @group calendar
- */
 class CalendarInteractorTest extends \PHPUnit_Framework_TestCase
 {
     /** @var CalendarInteractor */

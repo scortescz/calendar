@@ -2,9 +2,6 @@
 
 namespace Scortes\Calendar;
 
-/**
- * @group calendar
- */
 class CalendarMonthsTest extends \PHPUnit_Framework_TestCase
 {
     /** @var array */

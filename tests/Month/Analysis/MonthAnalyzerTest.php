@@ -4,12 +4,8 @@ namespace Scortes\Calendar\Month\Analysis;
 
 use Scortes\Calendar\Month\Month;
 
-/**
- * @group analysis
- */
 class MonthAnalyzerTest extends \PHPUnit_Framework_TestCase
 {
-
     /** @var MonthAnalyzer */
     private $analyzer;
 

@@ -2,9 +2,6 @@
 
 namespace Scortes\Calendar\Events;
 
-/**
- * @group events
- */
 class EventTest extends \PHPUnit_Framework_TestCase
 {
     /** @var Event */
