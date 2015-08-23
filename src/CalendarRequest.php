@@ -4,12 +4,10 @@ namespace Scortes\Calendar;
 
 class CalendarRequest
 {
-    /** @var \DateTime */
+    /** @var \DateTime|null */
     public $dateStart;
-    /** @var \DateTime */
+    /** @var \DateTime|null */
     public $dateEnd;
-    /** @var array */
+    /** @var array[date => event] */
     public $events = array();
-    /** @var string */
-    public $eventsDelimiter;
 }

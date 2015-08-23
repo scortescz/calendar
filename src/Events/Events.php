@@ -9,13 +9,10 @@ class Events
     /** @var \Scortes\Calendar\Events\KeyDecomposition */
     private $keys;
 
-    public function __construct($delimiter, array $events = array())
+    public function __construct($delimiter)
     {
         $this->root = new EventNode('');
         $this->keys = new KeyDecomposition($delimiter);
-        foreach ($events as $date => $event) {
-            $this->set($date, $event);
-        }
     }
 
     public function find($key)

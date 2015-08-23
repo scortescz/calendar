@@ -15,7 +15,6 @@ $request->events = array(
     "{$currentYear}-{$currentMonth}-16" => '16th day in month',
     "{$currentYear}-{$nextMonth}-17" => 'Day in next month',
 );
-$request->eventsDelimiter = '-';
 
 $response = Scortes\Calendar\createCalendar($request);
 ?>
