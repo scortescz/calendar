@@ -8,14 +8,11 @@ class Events implements EventsIterator
     private $root;
     /** @var \Scortes\Calendar\Events\KeyDecomposition */
     private $keys;
-    /** @var \Scortes\Calendar\Events\Helpers\FindResultFactory */
-    private $findResults;
 
     public function __construct($delimiter)
     {
         $this->root = new EventNode('');
         $this->keys = new Helpers\KeyDecomposition($delimiter);
-        $this->findResults = new Helpers\FindResultFactory();
     }
 
     public function find($key)
@@ -35,10 +32,10 @@ class Events implements EventsIterator
             if ($event->existsSubEvent($key)) {
                 $event = $event->getSubEvent($key);
             } else {
-                return $this->findResults->fail();
+                return FindResult::fail();
             }
         }
-        return $this->findResults->success($event);
+        return FindResult::success($event);
     }
 
     public function set($key, $event)
