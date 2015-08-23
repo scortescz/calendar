@@ -19,35 +19,15 @@ class Today
     
     public function __construct()
     {
-        $this->date = $this->getToday();
-        $this->day = $this->getDay();
-        $this->monthNumber = $this->getMonth();
-        $this->year = $this->getYear();
-        $this->weekNumber = $this->getWeek();
+        $this->date = new DateTime();
+        $this->day = $this->extract('j');
+        $this->monthNumber = $this->extract('n');
+        $this->year = $this->extract('Y');
+        $this->weekNumber = $this->extract('W');
     }
 
-    private function getToday()
+    private function extract($format)
     {
-        return new DateTime();
-    }
-
-    private function getDay()
-    {
-        return $this->date->format('j');
-    }
-
-    private function getMonth()
-    {
-        return $this->date->format('n');
-    }
-
-    private function getYear()
-    {
-        return $this->date->format('Y');
-    }
-
-    private function getWeek()
-    {
-        return $this->date->format('W');
+        return (int) $this->date->format($format);
     }
 }

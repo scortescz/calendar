@@ -2,44 +2,23 @@
 
 namespace Scortes\Calendar\Helpers;
 
-use \DateTime;
-
 class TodayTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var Today */
-    private $today;
-
-    protected function setUp()
+    /** @dataProvider provideDates */
+    public function testShouldExtractPartOfDate($unit, $expectedDate)
     {
-        $this->today = new Today();
+        $today = new Today();
+        assertThat($today->date, anInstanceOf('DateTime'));
+        assertThat($today->{$unit}, is(date($expectedDate)));
     }
 
-    public function testDateTimeIsReturned()
+    public function provideDates()
     {
-        parent::assertTrue($this->today->date instanceof DateTime);
-    }
-
-    public function testNoDifferenceBetweenCurrentDayAndDate()
-    {
-        $difference = $this->today->day - date('j');
-        parent::assertEquals(0, $difference);
-    }
-
-    public function testNoDifferenceBetweenCurrentMonthAndDate()
-    {
-        $difference = $this->today->monthNumber - date('n');
-        parent::assertEquals(0, $difference);
-    }
-
-    public function testNoDifferenceBetweenCurrentYearAndDate()
-    {
-        $difference = $this->today->year - date('Y');
-        parent::assertEquals(0, $difference);
-    }
-
-    public function testNoDifferenceBetweenCurrentWeekAndDate()
-    {
-        $difference = $this->today->weekNumber - date('W');
-        parent::assertEquals(0, $difference);
+        return [
+            ['day', 'j'],
+            ['monthNumber', 'n'],
+            ['year', 'Y'],
+            ['weekNumber', 'W'],
+        ];
     }
 }
