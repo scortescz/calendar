@@ -17,8 +17,8 @@ class EventsTest extends \PHPUnit_Framework_TestCase
         $events = new Events('-');
         $events->set('key', 'value');
         $events->set('key-another', 'value');
-        parent::assertEquals('value', $events->find('key')->event);
-        parent::assertEquals('value', $events->find('key-another')->event);
+        parent::assertEquals('value', $events->find('key'));
+        parent::assertEquals('value', $events->find('key-another'));
     }
 
     public function testLevelZero()
@@ -39,23 +39,23 @@ class EventsTest extends \PHPUnit_Framework_TestCase
     private function assertSettingAndRetrievingValue($key, $value)
     {
         $this->events->set($key, $value);
-        parent::assertEquals($value, $this->events->find($key)->event);
+        parent::assertEquals($value, $this->events->find($key));
     }
 
     public function testAddSecondLevelThenAddFirstLevel()
     {
         $this->events->set('key another', 'second');
         $this->events->set('key', 'value');
-        parent::assertEquals('value', $this->events->find('key')->event);
-        parent::assertEquals('second', $this->events->find('key another')->event);
+        parent::assertEquals('value', $this->events->find('key'));
+        parent::assertEquals('second', $this->events->find('key another'));
     }
 
     public function testOverrideExistingKeyInFirstLevelToSecond()
     {
         $this->events->set('key', 'value');
         $this->events->set('key another', 'override');
-        parent::assertEquals('value', $this->events->find('key')->event);
-        parent::assertEquals('override', $this->events->find('key another')->event);
+        parent::assertEquals('value', $this->events->find('key'));
+        parent::assertEquals('override', $this->events->find('key another'));
     }
 
     public function testOverrideInLevelZero()
@@ -77,7 +77,7 @@ class EventsTest extends \PHPUnit_Framework_TestCase
     {
         $this->events->set($key, 'value');
         $this->events->set($key, 'override');
-        parent::assertEquals(array('value', 'override'), $this->events->find($key)->event);
+        parent::assertEquals(array('value', 'override'), $this->events->find($key));
     }
 
     public function testIfKeyExistsInFirstLevel()
@@ -92,9 +92,9 @@ class EventsTest extends \PHPUnit_Framework_TestCase
 
     private function assertExistingKey($key)
     {
-        parent::assertFalse($this->events->find($key)->exist);
+        parent::assertNull($this->events->find($key));
         $this->events->set($key, 'value');
-        parent::assertTrue($this->events->find($key)->exist);
+        parent::assertNotNull($this->events->find($key));
     }
 
     public function testIteratorReturnsEventWithDate()

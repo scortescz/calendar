@@ -17,11 +17,8 @@ class Events implements EventsIterator
 
     public function find($key)
     {
-        $result = $this->findEventNode($key);
-        if ($result->exist) {
-            $result->event = $result->event->unwrapEvent();
-        }
-        return $result;
+        $event = $this->findEventNode($key);
+        return $event instanceof EventNode ? $event->unwrapEvent() : null;
     }
 
     private function findEventNode($key)
@@ -32,10 +29,10 @@ class Events implements EventsIterator
             if ($event->existsSubEvent($key)) {
                 $event = $event->getSubEvent($key);
             } else {
-                return FindResult::fail();
+                return null;
             }
         }
-        return FindResult::success($event);
+        return $event;
     }
 
     public function set($key, $event)
@@ -97,6 +94,6 @@ class Events implements EventsIterator
     public function iterate($startNode)
     {
         $firstNode = $this->findEventNode($startNode);
-        return new DepthFirstSearch($firstNode->event);
+        return new DepthFirstSearch($firstNode);
     }
 }

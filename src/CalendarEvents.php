@@ -22,7 +22,7 @@ class CalendarEvents implements EventsIterator
         if (!array_key_exists($date, $this->cache)) {
             $this->cache[$date] = $this->events->find($date);
         }
-        return $this->cache[$date]->event;
+        return $this->cache[$date];
     }
 
     public function getIterator()
