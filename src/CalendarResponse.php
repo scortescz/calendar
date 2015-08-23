@@ -8,6 +8,6 @@ class CalendarResponse
     public $today;
     /** @var \Scortes\Calendar\CalendarMonths */
     public $months;
-    /** @var \Scortes\Calendar\CalendarEvents */
+    /** @var \Scortes\Calendar\Events\Events */
     public $events;
 }

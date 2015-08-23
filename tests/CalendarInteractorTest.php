@@ -49,7 +49,7 @@ class CalendarInteractorTest extends \PHPUnit_Framework_TestCase
 
     private function assertExistingEvent($date, $expectedEvent)
     {
-        parent::assertEquals($expectedEvent, $this->response->events->getEvent($date));
+        parent::assertEquals($expectedEvent, $this->response->events->find($date));
     }
 
     private function assertExistingEventsFromIterator($datePart, $expectedEvents)

@@ -30,7 +30,7 @@ class CalendarInteractor
         foreach ($inputEvents as $date => $event) {
             $events->set($date, $event);
         }
-        return new CalendarEvents($events);
+        return $events;
     }
 
     public function getMonths(CalendarRequest $request)
