@@ -11,8 +11,7 @@ class MonthsBetweenDatesTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $factory = new MonthFactory();
-        $this->object = new MonthsBetweenDates($factory);
+        $this->object = new MonthsBetweenDates();
     }
 
     public function testTwoMonthsBetweenOctoberAndNovember()

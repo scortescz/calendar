@@ -2,7 +2,6 @@
 
 namespace Scortes\Calendar;
 
-use Scortes\Calendar\Month\MonthFactory;
 use Scortes\Calendar\Month\MonthAnalyzer;
 use Scortes\Calendar\Month\MonthsBetweenDates;
 use Scortes\Calendar\Events\Events;
@@ -14,8 +13,7 @@ class CalendarInteractor
 
     public function __construct()
     {
-        $factory = new MonthFactory();
-        $this->monthsBetween = new MonthsBetweenDates($factory);
+        $this->monthsBetween = new MonthsBetweenDates();
         $this->monthAnalyzer = new MonthAnalyzer();
     }
 

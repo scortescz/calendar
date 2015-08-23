@@ -14,13 +14,6 @@ class MonthsBetweenDates
     private $yearDifference;
     /** @var array */
     private $months;
-    /** @var \Scortes\Calendar\MonthFactory */
-    private $monthFactory;
-
-    public function __construct(MonthFactory $factory)
-    {
-        $this->monthFactory = $factory;
-    }
 
     public function getMonths(DateTime $startDate, DateTime $endDate)
     {
@@ -34,12 +27,12 @@ class MonthsBetweenDates
 
     private function setFirstMonth($startDate)
     {
-        $this->firstMonth = $this->monthFactory->createMonthFromDatetime($startDate);
+        $this->firstMonth = Month::fromDatetime($startDate);
     }
 
     private function setLastMonth($endDate)
     {
-        $this->lastMonth = $this->monthFactory->createMonthFromDatetime($endDate);
+        $this->lastMonth = Month::fromDatetime($endDate);
     }
 
     private function calculateYearDifference()
@@ -98,7 +91,7 @@ class MonthsBetweenDates
     private function addMonths($year, $startMonth, $endMonth)
     {
         for ($month = $startMonth; $month <= $endMonth; $month++) {
-            $this->months[] = $this->monthFactory->create($month, $year);
+            $this->months[] = new Month($month, $year);
         }
     }
 }
