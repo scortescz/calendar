@@ -18,8 +18,8 @@ $request->events = array(
 $request->eventsDelimiter = '-';
 
 $interactor = new \Scortes\Calendar\CalendarInteractor(
-    new Scortes\Calendar\Month\MonthsBetweenDates(),
-    new Scortes\Calendar\Month\MonthAnalyzer()
+    new Scortes\Calendar\Month\CreateMonthsInterval(),
+    new Scortes\Calendar\Month\AnalyzeMonth()
 );
 $response = $interactor($request);
 ?>

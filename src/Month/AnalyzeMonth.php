@@ -5,7 +5,7 @@ namespace Scortes\Calendar\Month;
 use \DateTime;
 use Scortes\Calendar\Month\Month;
 
-class MonthAnalyzer
+class AnalyzeMonth
 {
     private static $englishMonths = array(
         '', 'January', 'February', 'March', 'April', 'May', 'June',

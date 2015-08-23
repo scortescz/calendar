@@ -2,19 +2,19 @@
 
 namespace Scortes\Calendar;
 
-use Scortes\Calendar\Month\MonthAnalyzer;
-use Scortes\Calendar\Month\MonthsBetweenDates;
+use Scortes\Calendar\Month\AnalyzeMonth;
+use Scortes\Calendar\Month\CreateMonthsInterval;
 use Scortes\Calendar\Events\Events;
 
 class CalendarInteractor
 {
-    private $monthsBetween;
-    private $monthAnalyzer;
+    private $createInterval;
+    private $analyzeMonth;
 
-    public function __construct(MonthsBetweenDates $b, MonthAnalyzer $a)
+    public function __construct(CreateMonthsInterval $b, AnalyzeMonth $a)
     {
-        $this->monthsBetween = $b;
-        $this->monthAnalyzer = $a;
+        $this->createInterval = $b;
+        $this->analyzeMonth = $a;
     }
 
     /** @return \Scortes\Calendar\CalendarResponse */
@@ -25,7 +25,7 @@ class CalendarInteractor
         $response->events = $this->getEvents($request->events, $request->eventsDelimiter);
         $response->months = $this->getMonths($request);
         foreach ($response->months as $m) {
-            $this->monthAnalyzer->__invoke($m);
+            $this->analyzeMonth->__invoke($m);
         }
         return $response;
     }
@@ -41,7 +41,7 @@ class CalendarInteractor
 
     public function getMonths(CalendarRequest $request)
     {
-        $months = $this->monthsBetween->__invoke($request->dateStart, $request->dateEnd);
+        $months = $this->createInterval->__invoke($request->dateStart, $request->dateEnd);
         return new CalendarMonths($months);
     }
 }

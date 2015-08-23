@@ -4,7 +4,7 @@ namespace Scortes\Calendar\Month;
 
 use \DateTime;
 
-class MonthsBetweenDatesTest extends \PHPUnit_Framework_TestCase
+class CreateMonthsIntervalTest extends \PHPUnit_Framework_TestCase
 {
     public function testShouldLoadMonthNumberAndYear()
     {
@@ -35,7 +35,7 @@ class MonthsBetweenDatesTest extends \PHPUnit_Framework_TestCase
     {
         $start = DateTime::createFromFormat('Y-m', $startDate);
         $end = DateTime::createFromFormat('Y-m', $endDate);
-        $uc = new MonthsBetweenDates();
+        $uc = new CreateMonthsInterval();
         return $uc($start, $end);
     }
 }

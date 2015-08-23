@@ -4,7 +4,7 @@ namespace Scortes\Calendar\Month;
 
 use \DateTime;
 
-class MonthsBetweenDates
+class CreateMonthsInterval
 {
     /** @var \Scortes\Calendar\Month */
     private $firstMonth;

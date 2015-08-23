@@ -16,8 +16,8 @@ class CalendarInteractorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->interval = $this->prophesize('Scortes\Calendar\Month\MonthsBetweenDates');
-        $this->analyzer = $this->prophesize('Scortes\Calendar\Month\MonthAnalyzer');
+        $this->interval = $this->prophesize('Scortes\Calendar\Month\CreateMonthsInterval');
+        $this->analyzer = $this->prophesize('Scortes\Calendar\Month\AnalyzeMonth');
     }
 
     public function testShouldLoadAnalyzedMonthsAndEvents()

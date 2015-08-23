@@ -4,7 +4,7 @@ namespace Scortes\Calendar\Month;
 
 use Scortes\Calendar\Month\Month;
 
-class MonthAnalyzerTest extends \PHPUnit_Framework_TestCase
+class AnalyzeMonthTest extends \PHPUnit_Framework_TestCase
 {
     /** @dataProvider provideMonth */
     public function testShouldAnalyzeMonth(
@@ -14,7 +14,7 @@ class MonthAnalyzerTest extends \PHPUnit_Framework_TestCase
         $expectedFirstDay,
         $expectedFirstWeekNumber
     ) {
-        $analyzer = new MonthAnalyzer;
+        $analyzer = new AnalyzeMonth;
         $analyzer($month);
         assertThat($month->daysCount, is($expectedDays));
         assertThat($month->weeksCount, is($expectedWeeks));
