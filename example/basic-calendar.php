@@ -1,14 +1,14 @@
 <?php
 require_once(__DIR__ . '/../autoload.php');
 
-$interactor = new \STM\Plugin\Calendar\CalendarInteractor();
+$interactor = new \Scortes\Calendar\CalendarInteractor();
 
 $currentYear = date('Y');
 $currentMonth = date('n');
 $previousMonth = $currentMonth - 1;
 $nextMonth = $currentMonth + 1;
 
-$request = new \STM\Plugin\Calendar\CalendarRequest();
+$request = new \Scortes\Calendar\CalendarRequest();
 $request->dateStart = new DateTime('now - 1 month');
 $request->dateEnd = new DateTime('now + 1 month');
 $request->analyzeMonths = true;

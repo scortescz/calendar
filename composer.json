@@ -1,0 +1,20 @@
+{
+    "name": "scortes/calendar",
+    "authors": [
+        {
+            "name": "Zdenek Drahos",
+            "email": "drahoszdenek@gmail.com"
+        }
+    ],
+    "require": {
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "johnkary/phpunit-speedtrap": "~1.0@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Scortes\\Calendar\\": "src/"
+        }
+    }
+}
