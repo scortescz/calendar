@@ -15,11 +15,6 @@ class Event
         $this->events = array();
     }
 
-    public function hasEvents()
-    {
-        return count($this->events) > 0;
-    }
-
     public function unwrap()
     {
         if (count($this->events) == 1) {

@@ -64,7 +64,7 @@ class DepthFirstSearch implements \IteratorAggregate
     private function addEvents(EventNode $removedEvent)
     {
         $event = $removedEvent->getEvent();
-        if ($event->hasEvents()) {
+        if ($event->events) {
             $this->events[] = $event;
         }
     }

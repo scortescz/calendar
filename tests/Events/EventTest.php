@@ -4,27 +4,19 @@ namespace Scortes\Calendar\Events;
 
 class EventTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var Event */
-    private $event;
-
-    public function testCreatedInstanceHasNoEvents()
+    /** @dataProvider provideEvents */
+    public function testUnwrappingInstance(array $events, $expectedUnwrappedEvents)
     {
-        $this->event = new Event('date');
-        parent::assertFalse($this->event->hasEvents());
+        $event = new Event('irrelevant key');
+        $event->events = $events;
+        assertThat($event->unwrap(), is($expectedUnwrappedEvents));
     }
 
-    public function testUnwrappingInstanceWithOneEvent()
+    public function provideEvents()
     {
-        $this->event = new Event('date');
-        $this->event->events[] = 'first';
-        parent::assertEquals('first', $this->event->unwrap());
-    }
-
-    public function testUnwrappingInstanceWithTwoEvents()
-    {
-        $events = array('first', 'second');
-        $this->event = new Event('date');
-        $this->event->events = $events;
-        parent::assertEquals($events, $this->event->unwrap());
+        return [
+            'one event -> unshift content' => [['first'], 'first'],
+            'no change when events count > 1' => [['first', 'second'], ['first', 'second']],
+        ];
     }
 }
