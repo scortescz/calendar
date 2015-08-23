@@ -10,27 +10,19 @@ class CalendarEvents implements EventsIterator
     /** @var \Scortes\Calendar\Events\Events */
     private $events;
     /** @var array */
-    private $eventsCache = array();
+    private $cache = array();
 
     public function __construct(Events $events)
     {
         $this->events = $events;
     }
 
-    public function existsEvent($date)
-    {
-        if (!array_key_exists($date, $this->eventsCache)) {
-            $this->eventsCache[$date] = $this->events->find($date);
-        }
-        return $this->eventsCache[$date]->exist;
-    }
-
     public function getEvent($date)
     {
-        if (!array_key_exists($date, $this->eventsCache)) {
-            $this->eventsCache[$date] = $this->events->find($date);
+        if (!array_key_exists($date, $this->cache)) {
+            $this->cache[$date] = $this->events->find($date);
         }
-        return $this->eventsCache[$date]->event;
+        return $this->cache[$date]->event;
     }
 
     public function getIterator()

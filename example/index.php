@@ -64,8 +64,8 @@ $response = $interactor($request);
                         $weekId = $isCurrentWeek && $isCurrentDay ? ' id="today"' : '';
                         echo "<td{$weekId}>";
                         $eventKey = "{$month->year}-{$month->monthNumber}-{$currentDay}";
-                        if ($response->events->existsEvent($eventKey)) {
-                            $event = $response->events->getEvent($eventKey);
+                        $event = $response->events->getEvent($eventKey);
+                        if ($event) {
                             echo "<strong title='{$event}'>" . $currentDay . '</strong>';
                         } else {
                             echo "<strong>" . $currentDay . '</strong>';

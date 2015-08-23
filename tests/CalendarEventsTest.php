@@ -18,17 +18,6 @@ class CalendarEventsTest extends \PHPUnit_Framework_TestCase
         $this->object = new CalendarEvents($this->events);
     }
 
-    public function testExistingEvent()
-    {
-        $this->events->set('2009-01-01', 'event');
-        parent::assertTrue($this->object->existsEvent('2009-01-01'));
-    }
-
-    public function testNonExistingEvent()
-    {
-        parent::assertFalse($this->object->existsEvent('unexisting'));
-    }
-
     public function testGetExistingEvent()
     {
         $event = 'my event';
