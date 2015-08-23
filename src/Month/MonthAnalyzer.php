@@ -1,6 +1,6 @@
 <?php
 
-namespace Scortes\Calendar\Month\Analysis;
+namespace Scortes\Calendar\Month;
 
 use \DateTime;
 use Scortes\Calendar\Month\Month;

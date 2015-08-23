@@ -3,15 +3,13 @@
 namespace Scortes\Calendar;
 
 use Scortes\Calendar\Month\MonthFactory;
-use Scortes\Calendar\Month\Analysis\MonthAnalyzer;
+use Scortes\Calendar\Month\MonthAnalyzer;
 use Scortes\Calendar\Month\MonthsBetweenDates;
 use Scortes\Calendar\Events\Events;
 
 class CalendarInteractor
 {
-    /** @var \Scortes\Calendar\Month\MonthsBetweenDates */
     private $monthsBetween;
-    /** @var \Scortes\Calendar\Month\Analysis\MonthAnalyzer */
     private $monthAnalyzer;
 
     public function __construct()

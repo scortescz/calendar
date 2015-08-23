@@ -140,7 +140,7 @@ class CalendarInteractorTest extends \PHPUnit_Framework_TestCase
         $this->assertNumberOfAnalyzedMonths(1);
         
         $september2013 = $this->response->monthsAnalyses[0];
-        parent::assertTrue($september2013 instanceof Month\Analysis\MonthAnalysis);
+        parent::assertTrue($september2013 instanceof Month\MonthAnalysis);
         parent::assertEquals(30, $september2013->daysCount);
         parent::assertEquals(6, $september2013->weeksCount);
         parent::assertEquals(7, $september2013->firstDayOfWeek);
