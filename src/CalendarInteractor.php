@@ -14,7 +14,6 @@ class CalendarInteractor
         $this->createInterval = $b;
     }
 
-    /** @return \Scortes\Calendar\CalendarResponse */
     public function __invoke(CalendarRequest $request)
     {
         $response = new CalendarResponse();
