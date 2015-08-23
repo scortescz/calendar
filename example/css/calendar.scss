@@ -1,0 +1,47 @@
+$background: #eee;
+
+body {
+    background: $background;
+}
+
+h1, h3 {
+    color: #00c;
+}
+
+table {
+    background: #fff;
+    border-spacing:0;
+    border-collapse:collapse;
+    td, th {
+        padding: 7px;
+    }
+    th {
+        background: $background;
+        color: #aaa;
+        font-weight: normal;
+        font-size: 0.8em;
+    }
+    tr#currentWeek {
+        td {
+            background: bisque;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            &:first-of-type {
+                border-left: 1px solid #000;
+            }
+            &:last-child {
+                border-right: 1px solid #000;
+            }
+            &#today {
+                color: #fff;
+                background: #000;
+            }
+        }        
+    }
+    td.noDay {
+        background: $background;
+    }
+    td strong[title] {
+        color: #f00;
+    }
+}
