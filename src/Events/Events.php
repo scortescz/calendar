@@ -2,7 +2,7 @@
 
 namespace Scortes\Calendar\Events;
 
-class Events
+class Events implements \IteratorAggregate
 {
     /** @var \Scortes\Calendar\Events\EventNode */
     private $root;
