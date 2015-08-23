@@ -20,6 +20,6 @@ class Event
         if (count($this->events) == 1) {
             return $this->events[0];
         }
-        return $this->events;
+        return $this->events ? $this->events : null;
     }
 }
