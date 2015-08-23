@@ -20,13 +20,7 @@ class CalendarInteractor
         $response = new CalendarResponse();
         $response->today = new Today();
         $response->events = new Events($request->eventsDelimiter, $request->events);
-        $response->months = $this->getMonths($request);
+        $response->months = $this->createInterval->__invoke($request->dateStart, $request->dateEnd);
         return $response;
-    }
-
-    public function getMonths(CalendarRequest $request)
-    {
-        $months = $this->createInterval->__invoke($request->dateStart, $request->dateEnd);
-        return new CalendarMonths($months);
     }
 }

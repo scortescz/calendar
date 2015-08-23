@@ -46,7 +46,7 @@ $response = $interactor($request);
         
         <h2>Basic calendar</h2>
         <?php
-        foreach ($response->months as $id => $month) {
+        foreach ($response->months as $month) {
             $isCurrentMonth = $response->today->isCurrentMonth($month);
             $monthId = $isCurrentMonth ? ' id="currentMonth"' : '';
             echo "<h3{$monthId}>Month {$month->monthNumber}/{$month->year}</h3>";
