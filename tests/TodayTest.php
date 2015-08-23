@@ -1,6 +1,6 @@
 <?php
 
-namespace Scortes\Calendar\Helpers;
+namespace Scortes\Calendar;
 
 class TodayTest extends \PHPUnit_Framework_TestCase
 {

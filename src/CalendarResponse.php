@@ -4,7 +4,7 @@ namespace Scortes\Calendar;
 
 class CalendarResponse
 {
-    /** @var \Scortes\Calendar\Helpers\Today */
+    /** @var \Scortes\Calendar\Today */
     public $today;
     /** @var \Scortes\Calendar\CalendarMonths */
     public $months;
