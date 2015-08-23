@@ -3,6 +3,7 @@
 namespace Scortes\Calendar;
 
 use \DateTime;
+use Scortes\Calendar\Month\Month;
 
 class Today
 {
@@ -17,9 +18,9 @@ class Today
     /** @var int */
     public $weekNumber;
     
-    public function __construct()
+    public function __construct(DateTime $d = null)
     {
-        $this->date = new DateTime();
+        $this->date = $d ?: new DateTime();
         $this->day = $this->extract('j');
         $this->monthNumber = $this->extract('n');
         $this->year = $this->extract('Y');
@@ -29,5 +30,22 @@ class Today
     private function extract($format)
     {
         return (int) $this->date->format($format);
+    }
+
+    public function isCurrentMonth(Month $month)
+    {
+        return $this->monthNumber == $month->monthNumber && $this->year == $month->year;
+    }
+
+    public function isCurrentWeek(Month $month, $weekNumber)
+    {
+        return $this->weekNumber == ($month->firstWeekNumber + $weekNumber);
+    }
+
+    public function isCurrentDay(Month $month, $weekDay, $currentDay)
+    {
+        $isDayInMonth = $weekDay >= $month->firstDayOfWeek && $currentDay <= $month->daysCount;
+        $isCurrentDay = $this->day == $currentDay;
+        return array($isDayInMonth, $isCurrentDay);
     }
 }

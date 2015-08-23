@@ -47,23 +47,21 @@ $response = $interactor($request);
         <h2>Basic calendar</h2>
         <?php
         foreach ($response->months as $id => $month) {
-            $isCurrentMonth = 
-                $response->today->monthNumber == $month->monthNumber &&
-                $response->today->year == $month->year;
+            $isCurrentMonth = $response->today->isCurrentMonth($month);
             $monthId = $isCurrentMonth ? ' id="currentMonth"' : '';
             echo "<h3{$monthId}>Month {$month->monthNumber}/{$month->year}</h3>";
 
             $currentDay = 1;
-            $emptyDate = 1;
+            $weekDay = 1;
             echo '<table>';
             for ($week = 0; $week < $month->weeksCount; $week++) {
-                $isCurrentWeek = $isCurrentMonth && $response->today->weekNumber == ($month->firstWeekNumber + $week);
+                $isCurrentWeek = $isCurrentMonth && $response->today->isCurrentWeek($month, $week);
                 $weekId = $isCurrentWeek ? ' id="currentWeek"' : '';
                 echo "<tr{$weekId}>";
                 for ($day = 0; $day < 7; $day++) {
-                    $isDayInMonth = $emptyDate++ >= $month->firstDayOfWeek && $currentDay <= $month->daysCount;
+                    list($isDayInMonth, $isCurrentDay) = $response->today->isCurrentDay($month, $weekDay++, $currentDay);
                     if ($isDayInMonth) {
-                        $weekId = $isCurrentWeek && $currentDay == $response->today->day ? ' id="today"' : '';
+                        $weekId = $isCurrentWeek && $isCurrentDay ? ' id="today"' : '';
                         echo "<td{$weekId}>";
                         $eventKey = "{$month->year}-{$month->monthNumber}-{$currentDay}";
                         if ($response->events->existsEvent($eventKey)) {
