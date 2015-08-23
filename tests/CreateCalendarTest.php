@@ -22,6 +22,7 @@ class CreateCalendarTest extends \PHPUnit_Framework_TestCase
         $r->dateStart = $dateStart;
         $r->dateEnd = $dateEnd;
         $r->events = array('2013-9-5' => 'irrelevant event');
+        $r->addEvent(new \DateTime(), 'another event');
         $uc = new CreateCalendar($this->interval->reveal());
         $uc($r);
     }

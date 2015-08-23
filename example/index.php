@@ -7,14 +7,15 @@ $previousMonth = $currentMonth - 1;
 $nextMonth = $currentMonth + 1;
 
 $request = new \Scortes\Calendar\CalendarRequest();
-$request->dateStart = new DateTime('now - 1 month');
-$request->dateEnd = new DateTime('now + 1 month');
+$request->dateStart = new DateTime('now - 2 month');
+$request->dateEnd = null; // use max date from events
 $request->events = array(
     "{$currentYear}-{$previousMonth}-10" => 'Day in previous month',
     "{$currentYear}-{$currentMonth}-1" => 'First day in month',
     "{$currentYear}-{$currentMonth}-16" => '16th day in month',
     "{$currentYear}-{$nextMonth}-17" => 'Day in next month',
 );
+$request->addEvent(new DateTime('now + 2 months'), 'now + 2 months');
 
 $response = Scortes\Calendar\createCalendar($request);
 ?>
