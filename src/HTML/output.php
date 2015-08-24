@@ -51,7 +51,8 @@ function monthsToTables(Calendar $calendar, array $config)
     }
 }
 
-function eventsToList(Calendar $calendar, $key, callable $showEvent) {
+function eventsToList(Calendar $calendar, $key, callable $showEvent)
+{
     echo '<ul>';
     foreach ($calendar->events->iterate($key) as $event) {
         echo "<li>{$showEvent($event, $key)}</strong></li>";

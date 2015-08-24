@@ -81,8 +81,12 @@ $calendar = Scortes\Calendar\createCalendar($request);
                     <?php echo $calendar->today->date->format('j.n.Y'); ?>
                 </strong></a>
             </li>
-            <li>Current month: <a href="#currentMonth"><strong><?php echo $calendar->today->monthNumber; ?></strong></a></li>
-            <li>Current week: <a href="#currentWeek"><strong><?php echo $calendar->today->weekNumber; ?></strong></a></li>
+            <li>Current month:
+                <a href="#currentMonth"><strong><?php echo $calendar->today->monthNumber; ?></strong></a>
+            </li>
+            <li>Current week:
+                <a href="#currentWeek"><strong><?php echo $calendar->today->weekNumber; ?></strong></a>
+            </li>
         </ul>
         
         <h2>Basic calendar</h2>
