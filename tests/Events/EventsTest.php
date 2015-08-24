@@ -13,11 +13,11 @@ class EventsTest extends \PHPUnit_Framework_TestCase
     }
 
     /** @dataProvider provideLevels */
-    public function testSetAndRetrieveValue($key)
+    public function testSetAndGetValue($key)
     {
-        assertThat($this->events->find($key), is(nullValue()));
+        assertThat($this->events->get($key), is(nullValue()));
         $this->events->set($key, 'value');
-        assertThat($this->events->find($key), is('value'));
+        assertThat($this->events->get($key), is('value'));
     }
 
     /** @dataProvider provideLevels */
@@ -25,7 +25,7 @@ class EventsTest extends \PHPUnit_Framework_TestCase
     {
         $this->events->set($key, 'value');
         $this->events->set($key, 'override');
-        assertThat($this->events->find($key), arrayWithSize(2));
+        assertThat($this->events->get($key), arrayWithSize(2));
     }
 
     public function provideLevels()
@@ -43,8 +43,8 @@ class EventsTest extends \PHPUnit_Framework_TestCase
         foreach ($events as $key => $event) {
             $this->events->set($key, $event);
         }
-        parent::assertEquals('first', $this->events->find('key'));
-        parent::assertEquals('second', $this->events->find('key another'));
+        parent::assertEquals('first', $this->events->get('key'));
+        parent::assertEquals('second', $this->events->get('key another'));
     }
 
     public function provideKeys()

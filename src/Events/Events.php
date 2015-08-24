@@ -15,7 +15,7 @@ class Events implements \IteratorAggregate
         $this->keys = new KeyDecomposition($delimiter);
     }
 
-    public function find($key)
+    public function get($key)
     {
         $event = $this->findEventNode($key);
         return $event instanceof EventNode ? $event->unwrapEvent() : null;

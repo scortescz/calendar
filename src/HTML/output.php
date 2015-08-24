@@ -27,7 +27,7 @@ function monthsToTables(Calendar $calendar, array $config)
                     $weekId = $isCurrentWeek && $isCurrentDay ? $config['selectors']['day'] : '';
                     echo "<td{$weekId}>";
                     $eventKey = "{$month->year}-{$month->monthNumber}-{$currentDay}";
-                    $event = $calendar->events->find($eventKey);
+                    $event = $calendar->events->get($eventKey);
                     if ($event) {
                         $eventsCount++;
                         echo $config['day']['withEvent']($event, $currentDay);

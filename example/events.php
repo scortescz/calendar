@@ -34,8 +34,8 @@ $events->set('Paul Carter', 'Paul Carter');
         <?php
         echo '<ul>';
         foreach (['Paul', 'John', 'John Doe', 'John Black'] as $key) {
-            echo "<li>\$events->find('{$key}'): ";
-            echo var_dump($events->find($key));
+            echo "<li>\$events->get('{$key}'): ";
+            echo var_dump($events->get($key));
             echo "</li>";
         }
         echo '</ul>';
