@@ -40,6 +40,7 @@ $calendar = Scortes\Calendar\createCalendar($request);
 \Scortes\Calendar\Html\monthsToTables(
     $calendar,
     array(
+        'hideMonthsWithoutEvent' => true,
         'currentId' => array(
             'table' => '',
             'month' => 'currentMonth',
@@ -89,6 +90,7 @@ $calendar = Scortes\Calendar\createCalendar($request);
         \Scortes\Calendar\Html\monthsToTables(
             $calendar,
             array(
+                'hideMonthsWithoutEvent' => true,
                 'selectors' => array(
                     'table' => ' class=calendar',
                     'month' => ' id=currentMonth',

@@ -7,6 +7,9 @@ use Scortes\Calendar\Calendar;
 function monthsToTables(Calendar $calendar, array $config)
 {
     foreach ($calendar->months as $month) {
+        ob_start();
+        $eventsCount = 0;
+
         $isCurrentMonth = $calendar->today->isCurrentMonth($month);
         $monthId = $isCurrentMonth ? $config['selectors']['month'] : '';
         echo $config['monthName']($month, $monthId);
@@ -26,6 +29,7 @@ function monthsToTables(Calendar $calendar, array $config)
                     $eventKey = "{$month->year}-{$month->monthNumber}-{$currentDay}";
                     $event = $calendar->events->find($eventKey);
                     if ($event) {
+                        $eventsCount++;
                         echo $config['day']['withEvent']($event, $currentDay);
                     } else {
                         echo $config['day']['withoutEvent']($currentDay);
@@ -39,6 +43,11 @@ function monthsToTables(Calendar $calendar, array $config)
             echo '</tr>';
         }
         echo '</table>';
+        
+        $monthString = ob_get_clean();
+        if (!isset($config['hideMonthsWithoutEvent']) || !$config['hideMonthsWithoutEvent'] || $eventsCount > 0) {
+            echo $monthString;
+        }
     }
 }
 
