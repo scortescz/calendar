@@ -13,9 +13,9 @@ composer require scortes/calendar
 
 ## [Calendar](/example/index.php)
 
-1. Add events list - every event needs to have date, content of event is up to you (it can be string, object, &hellip;)
-2. Optionally you can set min/max dates. If you don't set them then they are automatically calculated
-3. Display calendar, you can use helper function `\Scortes\Calendar\HTML\monthsToTables` for classic calendar format
+1. **Add events** - every event needs to have date, content of event is completely up to you (it can be string, object, …)
+2. Optionally you can **set min/max dates** in `dateStart/dateEnd`. Otherwise they are automatically calculated.
+3. **Display calendar**, you can use helper function `\Scortes\Calendar\HTML\monthsToTables` for classic calendar.
 
 ```php
 // configure calendar
@@ -100,8 +100,8 @@ $events->iterate('John'); // [John, John Doe, [John Black, Another John Black]]
 ## Contributing
 
 Contributions from others would be very much appreciated! Send 
-[pull request](https://github.com/scortescz/calendar/pulls)/
-[issue](https://github.com/scortescz/calendar/issues). Thanks!
+[pull request](https://github.com/scortescz/calendar/pulls)/[issue](https://github.com/scortescz/calendar/issues). 
+Thanks!
 
 ## License
 
