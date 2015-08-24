@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Calendar by scortescz</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Calendar</h1>
+        <p>Monthly Event Calendar</p>
+
+        <p class="view"><a href="https://github.com/scortescz/calendar">View the Project on GitHub <small>scortescz/calendar</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/scortescz/calendar/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/scortescz/calendar/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/scortescz/calendar">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="monthly-event-calendar" class="anchor" href="#monthly-event-calendar" aria-hidden="true"><span class="octicon octicon-link"></span></a>Monthly Event Calendar</h1>
+
+<p><a href="https://packagist.org/packages/scortes/calendar"><img src="https://poser.pugx.org/scortes/calendar/license" alt="License"></a>
+<a href="https://packagist.org/packages/scortes/calendar"><img src="https://poser.pugx.org/scortes/calendar/v/stable" alt="Latest Stable Version"></a>
+<a href="https://www.versioneye.com/user/projects/55dae8d3a4d503000a000acf"><img src="https://www.versioneye.com/user/projects/55dae8d3a4d503000a000acf/badge.svg?style=flat" alt="Dependency Status"></a></p>
+
+<h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h2>
+
+<div class="highlight highlight-bash"><pre>composer require scortes/calendar</pre></div>
+
+<h2>
+<a id="calendar" class="anchor" href="#calendar" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="/example/index.php">Calendar</a>
+</h2>
+
+<ol>
+<li>
+<strong>Add events</strong> - every event needs to have date, content of event is completely up to you (it can be string, object, …)</li>
+<li>Optionally you can <strong>set min/max dates</strong> in <code>dateStart/dateEnd</code>. Otherwise they are automatically calculated.</li>
+<li>
+<strong>Display calendar</strong>, you can use helper function <code>\Scortes\Calendar\HTML\monthsToTables</code> for classic calendar.</li>
+</ol>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-c">// configure calendar</span></span>
+<span class="pl-s1"><span class="pl-smi">$request</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">\Scortes\Calendar\</span><span class="pl-c1">CalendarRequest</span>();</span>
+<span class="pl-s1"><span class="pl-smi">$request</span><span class="pl-k">-&gt;</span><span class="pl-smi">dateStart</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">DateTime</span>(<span class="pl-s"><span class="pl-pds">'</span>now - 2 month<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-smi">$request</span><span class="pl-k">-&gt;</span><span class="pl-smi">dateEnd</span> <span class="pl-k">=</span> <span class="pl-c1">null</span>; <span class="pl-c">// use max date from events</span></span>
+<span class="pl-s1"><span class="pl-smi">$request</span><span class="pl-k">-&gt;</span><span class="pl-smi">events</span> <span class="pl-k">=</span> [</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">"</span>now - 1 month<span class="pl-pds">"</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>Day in previous month<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-c1">date</span>(<span class="pl-s"><span class="pl-pds">'</span>Y-n-<span class="pl-pds">'</span></span>) <span class="pl-k">.</span> <span class="pl-c1">1</span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>First day in month<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-c1">date</span>(<span class="pl-s"><span class="pl-pds">'</span>Y-n-<span class="pl-pds">'</span></span>) <span class="pl-k">.</span> <span class="pl-c1">16</span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>16th day in month<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">"</span>now + 1 month<span class="pl-pds">"</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>Day in next month<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">];</span>
+<span class="pl-s1"><span class="pl-smi">$request</span><span class="pl-k">-&gt;</span>addEvent(<span class="pl-k">new</span> <span class="pl-c1">DateTime</span>(<span class="pl-s"><span class="pl-pds">'</span>now + 2 months<span class="pl-pds">'</span></span>), <span class="pl-s"><span class="pl-pds">'</span>now + 2 months<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">// build calendar</span></span>
+<span class="pl-s1"><span class="pl-smi">$calendar</span> <span class="pl-k">=</span> <span class="pl-c1">Scortes\Calendar\</span>createCalendar(<span class="pl-smi">$request</span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">// display calendar</span></span>
+<span class="pl-s1"><span class="pl-c1">\Scortes\Calendar\HTML\</span>monthsToTables(</span>
+<span class="pl-s1">    <span class="pl-smi">$calendar</span>,</span>
+<span class="pl-s1">    <span class="pl-c1">array</span>(</span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>hideMonthsWithoutEvent<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span>,</span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>currentId<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">array</span>(</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>table<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>month<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>currentMonth<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>week<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>currentWeek<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>day<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>today<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">        ),</span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>monthName<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-k">function</span> (<span class="pl-c1">Scortes\Calendar\Month\</span><span class="pl-c1">Month</span> <span class="pl-smi">$month</span>, <span class="pl-smi">$monthId</span>) {</span>
+<span class="pl-s1">            <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;h3{<span class="pl-smi">$monthId</span>}&gt;Month {<span class="pl-smi">$month</span><span class="pl-k">-&gt;</span><span class="pl-smi">monthNumber</span>}/{<span class="pl-smi">$month</span><span class="pl-k">-&gt;</span><span class="pl-smi">year</span>}&lt;/h3&gt;<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1">        },</span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">'</span>day<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">array</span>(</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>withEvent<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-k">function</span> (<span class="pl-smi">$event</span>, <span class="pl-smi">$currentDay</span>) {</span>
+<span class="pl-s1">                <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;strong title='{<span class="pl-smi">$event</span>}'&gt;{<span class="pl-smi">$currentDay</span>}&lt;/strong&gt;<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1">            },</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>withoutEvent<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-k">function</span> (<span class="pl-smi">$currentDay</span>) {</span>
+<span class="pl-s1">                <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;strong&gt;{<span class="pl-smi">$currentDay</span>}&lt;/strong&gt;<span class="pl-pds">"</span></span>;</span>
+<span class="pl-s1">            },</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>empty<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;td class="noDay"&gt;&amp;nbsp;&lt;/td&gt;<span class="pl-pds">'</span></span></span>
+<span class="pl-s1">        )</span>
+<span class="pl-s1">    )</span>
+<span class="pl-s1">);</span></pre></div>
+
+<h2>
+<a id="components" class="anchor" href="#components" aria-hidden="true"><span class="octicon octicon-link"></span></a>Components</h2>
+
+<p>Calendar consist of two independent components:</p>
+
+<ul>
+<li><a href="/example/months.php">analyzing months</a></li>
+<li><a href="/example/events.php">data structure for events</a></li>
+</ul>
+
+<h3>
+<a id="analyze-months-between-two-datetimes" class="anchor" href="#analyze-months-between-two-datetimes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analyze months between two DateTimes</h3>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$dateStart</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">DateTime</span>(<span class="pl-s"><span class="pl-pds">'</span>now - 1 month<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-smi">$dateEnd</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">DateTime</span>(<span class="pl-s"><span class="pl-pds">'</span>now + 2 months<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-smi">$months</span> <span class="pl-k">=</span> <span class="pl-c1">\Scortes\Calendar\</span>createMonthsInterval(<span class="pl-smi">$dateStart</span>, <span class="pl-smi">$dateEnd</span>);</span></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Month</th>
+<th>Days Count</th>
+<th>Weeks Count</th>
+<th>First Day of Week</th>
+<th>First Week Number</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2015</td>
+<td>7</td>
+<td>31</td>
+<td>5</td>
+<td>3</td>
+<td>27</td>
+</tr>
+<tr>
+<td>2015</td>
+<td>8</td>
+<td>31</td>
+<td>6</td>
+<td>6</td>
+<td>31</td>
+</tr>
+<tr>
+<td>2015</td>
+<td>9</td>
+<td>30</td>
+<td>5</td>
+<td>2</td>
+<td>36</td>
+</tr>
+<tr>
+<td>2015</td>
+<td>10</td>
+<td>31</td>
+<td>5</td>
+<td>4</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="data-structure-for-events-trie-separated-by-delimiter" class="anchor" href="#data-structure-for-events-trie-separated-by-delimiter" aria-hidden="true"><span class="octicon octicon-link"></span></a> Data structure for events (trie separated by delimiter)</h3>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$events</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">\Scortes\Calendar\Events\</span><span class="pl-c1">Events</span>(<span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-smi">$events</span><span class="pl-k">-&gt;</span>set(<span class="pl-s"><span class="pl-pds">'</span>John<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>John<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-smi">$events</span><span class="pl-k">-&gt;</span>set(<span class="pl-s"><span class="pl-pds">'</span>John Doe<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>John Doe<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-smi">$events</span><span class="pl-k">-&gt;</span>set(<span class="pl-s"><span class="pl-pds">'</span>John Black<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>John Black<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-smi">$events</span><span class="pl-k">-&gt;</span>set(<span class="pl-s"><span class="pl-pds">'</span>John Black<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Another John Black<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-smi">$events</span><span class="pl-k">-&gt;</span>set(<span class="pl-s"><span class="pl-pds">'</span>Paul Carter<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Paul Carter<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$events</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>John Doe<span class="pl-pds">'</span></span>); <span class="pl-c">// John Doe</span></span>
+<span class="pl-s1"><span class="pl-smi">$events</span><span class="pl-k">-&gt;</span>get(<span class="pl-s"><span class="pl-pds">'</span>John Black<span class="pl-pds">'</span></span>); <span class="pl-c">// [John Black, Another John Black]</span></span>
+<span class="pl-s1"><span class="pl-smi">$events</span><span class="pl-k">-&gt;</span>iterate(<span class="pl-s"><span class="pl-pds">'</span>John<span class="pl-pds">'</span></span>); <span class="pl-c">// [John, John Doe, [John Black, Another John Black]]</span></span></pre></div>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Contributions from others would be very much appreciated! Send 
+<a href="https://github.com/scortescz/calendar/pulls">pull request</a>/<a href="https://github.com/scortescz/calendar/issues">issue</a>. 
+Thanks!</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Copyright (c) 2015 Scortes. MIT Licensed,
+see <a href="/LICENSE">LICENSE</a> for details.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/scortescz">scortescz</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
