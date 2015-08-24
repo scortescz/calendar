@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$dateStart = new DateTime('now - 1 year');
+$dateStart = new DateTime('now - 1 month');
 $dateEnd = new DateTime('now + 2 months');
 $months = \Scortes\Calendar\createMonthsInterval($dateStart, $dateEnd);
 ?>

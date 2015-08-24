@@ -37,7 +37,7 @@ $request->addEvent(new DateTime('now + 2 months'), 'now + 2 months');
 
 $calendar = Scortes\Calendar\createCalendar($request);
 
-\Scortes\Calendar\Html\monthsToTables(
+\Scortes\Calendar\HTML\monthsToTables(
     $calendar,
     array(
         'hideMonthsWithoutEvent' => true,
@@ -63,7 +63,7 @@ $calendar = Scortes\Calendar\createCalendar($request);
 );
 
 // Events in current month
-\Scortes\Calendar\Html\eventsToList(
+\Scortes\Calendar\HTML\eventsToList(
     $calendar,
     "{$calendar->today->year}-{$calendar->today->monthNumber}",
     function ($event, $key) {
@@ -91,7 +91,7 @@ $calendar = Scortes\Calendar\createCalendar($request);
         
         <h2>Basic calendar</h2>
         <?php
-        \Scortes\Calendar\Html\monthsToTables(
+        \Scortes\Calendar\HTML\monthsToTables(
             $calendar,
             array(
                 'hideMonthsWithoutEvent' => true,
@@ -124,7 +124,7 @@ $calendar = Scortes\Calendar\createCalendar($request);
 
         <h3>All events</h3>
         <?php
-        \Scortes\Calendar\Html\eventsToList(
+        \Scortes\Calendar\HTML\eventsToList(
             $calendar,
             '',
             function ($event) {
@@ -135,7 +135,7 @@ $calendar = Scortes\Calendar\createCalendar($request);
         
         <h3>Events in current month</h3>
         <?php
-        \Scortes\Calendar\Html\eventsToList(
+        \Scortes\Calendar\HTML\eventsToList(
             $calendar,
             "{$calendar->today->year}-{$calendar->today->monthNumber}",
             function ($event, $key) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Scortes\Calendar\Html;
+namespace Scortes\Calendar\HTML;
 
 use Scortes\Calendar\Calendar;
 
