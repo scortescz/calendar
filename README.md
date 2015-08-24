@@ -39,10 +39,10 @@ $calendar = Scortes\Calendar\createCalendar($request);
     array(
         'hideMonthsWithoutEvent' => true,
         'selectors' => array(
-            'table' => '',
-            'month' => 'currentMonth',
-            'week' => 'currentWeek',
-            'day' => 'today',
+            'table' => ' class=calendar',
+            'month' => ' id=currentMonth',
+            'week' => ' id=currentWeek',
+            'day' => ' id=today',
         ),
         'monthName' => function (Scortes\Calendar\Month\Month $month, $monthId) {
             return "<h3{$monthId}>Month {$month->monthNumber}/{$month->year}</h3>";
