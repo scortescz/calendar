@@ -1,9 +1,9 @@
 
 # Monthly Event Calendar
 
-license
-stable version
-versioneye
+[![License](https://poser.pugx.org/scortes/calendar/license)](https://packagist.org/packages/scortes/calendar)
+[![Latest Stable Version](https://poser.pugx.org/scortes/calendar/v/stable)](https://packagist.org/packages/scortes/calendar)
+[![Dependency Status](https://www.versioneye.com/user/projects/55dae8d3a4d503000a000acf/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55dae8d3a4d503000a000acf)
 
 ## Install
 
