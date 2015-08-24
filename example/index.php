@@ -36,6 +36,39 @@ $request->events = [
 $request->addEvent(new DateTime('now + 2 months'), 'now + 2 months');
 
 $calendar = Scortes\Calendar\createCalendar($request);
+
+\Scortes\Calendar\Html\monthsToTables(
+    $calendar,
+    array(
+        'currentId' => array(
+            'table' => '',
+            'month' => 'currentMonth',
+            'week' => 'currentWeek',
+            'day' => 'today',
+        ),
+        'monthName' => function (Scortes\Calendar\Month\Month $month, $monthId) {
+            return "&lt;h3{$monthId}>Month {$month->monthNumber}/{$month->year}&lt;/h3>";
+        },
+        'day' => array(
+            'withEvent' => function ($event, $currentDay) {
+                return "&lt;strong title='{$event}'>{$currentDay}&lt;/strong>";
+            },
+            'withoutEvent' => function ($currentDay) {
+                return "&lt;strong>{$currentDay}&lt;/strong>";
+            },
+            'empty' => '&lt;td class="noDay">&nbsp;&lt;/td>'
+        )
+    )
+);
+
+// Events in current month
+\Scortes\Calendar\Html\eventsToList(
+    $calendar,
+    "{$calendar->today->year}-{$calendar->today->monthNumber}",
+    function ($event, $key) {
+        return "{$key} - &lt;strong>{$event}&lt;/strong>";
+    }
+);
         </pre>
         
         <h1>Calendar</h1>
@@ -53,40 +86,29 @@ $calendar = Scortes\Calendar\createCalendar($request);
         
         <h2>Basic calendar</h2>
         <?php
-        foreach ($calendar->months as $month) {
-            $isCurrentMonth = $calendar->today->isCurrentMonth($month);
-            $monthId = $isCurrentMonth ? ' id="currentMonth"' : '';
-            echo "<h3{$monthId}>Month {$month->monthNumber}/{$month->year}</h3>";
-
-            $currentDay = 1;
-            $weekDay = 1;
-            echo '<table>';
-            for ($week = 0; $week < $month->weeksCount; $week++) {
-                $isCurrentWeek = $isCurrentMonth && $calendar->today->isCurrentWeek($month, $week);
-                $weekId = $isCurrentWeek ? ' id="currentWeek"' : '';
-                echo "<tr{$weekId}>";
-                for ($day = 0; $day < 7; $day++) {
-                    list($isDayInMonth, $isCurrentDay) = $calendar->today->isCurrentDay($month, $weekDay++, $currentDay);
-                    if ($isDayInMonth) {
-                        $weekId = $isCurrentWeek && $isCurrentDay ? ' id="today"' : '';
-                        echo "<td{$weekId}>";
-                        $eventKey = "{$month->year}-{$month->monthNumber}-{$currentDay}";
-                        $event = $calendar->events->find($eventKey);
-                        if ($event) {
-                            echo "<strong title='{$event}'>" . $currentDay . '</strong>';
-                        } else {
-                            echo "<strong>" . $currentDay . '</strong>';
-                        }
-                        $currentDay++;
-                    } else {
-                        echo '<td class="noDay">&nbsp;';
-                    }
-                    echo '</td>';
-                }
-                echo '</tr>';
-            }
-            echo '</table>';
-        }
+        \Scortes\Calendar\Html\monthsToTables(
+            $calendar,
+            array(
+                'selectors' => array(
+                    'table' => ' class=calendar',
+                    'month' => ' id=currentMonth',
+                    'week' => ' id=currentWeek',
+                    'day' => ' id=today',
+                ),
+                'monthName' => function (Scortes\Calendar\Month\Month $month, $monthId) {
+                    return "<h3{$monthId}>Month {$month->monthNumber}/{$month->year}</h3>";
+                },
+                'day' => array(
+                    'withEvent' => function ($event, $currentDay) {
+                        return "<strong title='{$event}'>{$currentDay}</strong>";
+                    },
+                    'withoutEvent' => function ($currentDay) {
+                        return "<strong>{$currentDay}</strong>";
+                    },
+                    'empty' => '<td class="noDay">&nbsp;</td>'
+                )
+            )
+        );
         ?>
 
 
@@ -95,20 +117,25 @@ $calendar = Scortes\Calendar\createCalendar($request);
         <pre><?php echo implode(', ', array_keys($request->events)); ?></pre>
 
         <h3>All events</h3>
-        <?php printEventsList(''); ?>
+        <?php
+        \Scortes\Calendar\Html\eventsToList(
+            $calendar,
+            '',
+            function ($event) {
+                return "<strong>{$event}</strong>";
+            }
+        );
+        ?>
         
         <h3>Events in current month</h3>
-        <?php printEventsList("{$calendar->today->year}-{$calendar->today->monthNumber}"); ?>
-
         <?php
-        function printEventsList($key) {
-            global $calendar;
-            echo '<ul>';
-            foreach ($calendar->events->iterate($key) as $event) {
-                echo "<li>{$key} - <strong>{$event}</strong></li>";
+        \Scortes\Calendar\Html\eventsToList(
+            $calendar,
+            "{$calendar->today->year}-{$calendar->today->monthNumber}",
+            function ($event, $key) {
+                return "{$key} - <strong>{$event}</strong>";
             }
-            echo '</ul>';
-        }
+        );
         ?>
         
     </body>

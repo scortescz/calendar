@@ -17,6 +17,6 @@
         "psr-4": {
             "Scortes\\Calendar\\": "src/"
         },
-        "files": ["bootstrap.php"]
+        "files": ["bootstrap.php", "src/HTML/output.php"]
     }
 }
