@@ -38,7 +38,7 @@ $calendar = Scortes\Calendar\createCalendar($request);
     $calendar,
     array(
         'hideMonthsWithoutEvent' => true,
-        'currentId' => array(
+        'selectors' => array(
             'table' => '',
             'month' => 'currentMonth',
             'week' => 'currentWeek',
