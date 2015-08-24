@@ -1,5 +1,9 @@
 {
     "name": "scortes/calendar",
+    "type": "library",
+    "description": "Monthly Event Calendar",
+    "keywords": ["calendar", "months", "events", "trie"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Zdenek Drahos",
@@ -18,5 +22,8 @@
             "Scortes\\Calendar\\": "src/"
         },
         "files": ["bootstrap.php", "src/HTML/output.php"]
+    },
+    "config": {
+        "optimize-autoloader": true
     }
 }
