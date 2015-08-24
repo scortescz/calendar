@@ -144,5 +144,11 @@ $calendar = Scortes\Calendar\createCalendar($request);
         );
         ?>
         
+        <h2>Calendar Components</h2>
+        <ul>
+            <li><a href="months.php">Analyze months between two DateTimes</a></li>
+            <li><a href="events.php">Set/get events (trie separated by selected delimiter)</a></li>
+        </ul>
+        
     </body>
 </html>
