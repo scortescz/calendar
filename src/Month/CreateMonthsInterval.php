@@ -10,8 +10,10 @@ class CreateMonthsInterval
     private $firstMonth;
     /** @var \Scortes\Calendar\Month */
     private $lastMonth;
-    /** @var int */
-    private $yearDifference;
+    /** @var bool */
+    private $areMonthsFromSameYear;
+    /** @var bool */
+    private $existCompleteYearBetweenMonths;
     /** @var array */
     private $months;
 
@@ -27,7 +29,7 @@ class CreateMonthsInterval
         $this->months = [];
         $this->firstMonth = $this->monthFromDatetime($startDate);
         $this->lastMonth = $this->monthFromDatetime($endDate);
-        $this->calculateYearDifference();
+        $this->analyzeYearDifference();
         $this->loadMonths();
         return $this->months;
     }
@@ -39,18 +41,20 @@ class CreateMonthsInterval
         return new Month($month, $year);
     }
 
-    private function calculateYearDifference()
+    private function analyzeYearDifference()
     {
-        $this->yearDifference = $this->lastMonth->year - $this->firstMonth->year;
+        $yearDifference = $this->lastMonth->year - $this->firstMonth->year;
+        $this->areMonthsFromSameYear = $yearDifference == 0;
+        $this->existCompleteYearBetweenMonths = $yearDifference >= 2;
     }
 
     private function loadMonths()
     {
         $this->addMonthsFromFirstYear();
-        if ($this->existCompleteYearBetweenMonths()) {
+        if ($this->existCompleteYearBetweenMonths) {
             $this->addMonthsFromBetweenYears();
         }
-        if (!$this->areMonthsFromSameYear()) {
+        if (!$this->areMonthsFromSameYear) {
             $this->addMonthsFromLastYear();
         }
     }
@@ -58,18 +62,8 @@ class CreateMonthsInterval
     private function addMonthsFromFirstYear()
     {
         $startMonth = $this->firstMonth->monthNumber;
-        $endMonth = $this->areMonthsFromSameYear() ? $this->lastMonth->monthNumber : 12;
+        $endMonth = $this->areMonthsFromSameYear ? $this->lastMonth->monthNumber : 12;
         $this->addMonths($this->firstMonth->year, $startMonth, $endMonth);
-    }
-
-    private function areMonthsFromSameYear()
-    {
-        return $this->yearDifference == 0;
-    }
-
-    private function existCompleteYearBetweenMonths()
-    {
-        return $this->yearDifference >= 2;
     }
 
     private function addMonthsFromBetweenYears()

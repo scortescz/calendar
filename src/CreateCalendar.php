@@ -26,16 +26,14 @@ class CreateCalendar
     private function loadEvents(CalendarRequest $request)
     {
         $events = new Events('-');
-        $firstDate = null;
-        $lastDate = null;
+        $dates = [];
         foreach ($request->events as $dateString => $event) {
             $date = (new \DateTime($dateString));
-            $firstDate = $firstDate ? min($date, $firstDate) : $date;
-            $lastDate = $lastDate ? max($date, $lastDate) : $date;
+            $dates[] = $date;
             $events->set($date->format('Y-n-j'), $event);
         }
-        $request->dateStart = $request->dateStart ?: $firstDate;
-        $request->dateEnd = $request->dateEnd ?: $lastDate;
+        $request->dateStart = $request->dateStart ?: min($dates);
+        $request->dateEnd = $request->dateEnd ?: max($dates);
         return $events;
     }
 }

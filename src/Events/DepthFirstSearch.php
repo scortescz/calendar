@@ -7,38 +7,22 @@ class DepthFirstSearch implements \IteratorAggregate
     /** @var array */
     private $stack;
     /** @var array */
-    private $events;
+    private $events = [];
 
     public function __construct(EventNode $firstNode = null)
     {
-        if (is_null($firstNode)) {
-            $this->loadEmptyEvents();
-        } else {
-            $this->prepareStack($firstNode);
+        if ($firstNode) {
+            $this->stack = [$firstNode];
+            $this->events = null;
         }
-    }
-
-    private function loadEmptyEvents()
-    {
-        $this->events = [];
-    }
-
-    private function prepareStack($firstNode)
-    {
-        $this->stack = [$firstNode];
     }
 
     public function getIterator()
     {
-        if ($this->eventsNotLoaded()) {
+        if ($this->events === null) {
             $this->loadEvents();
         }
         return new \ArrayIterator($this->events);
-    }
-
-    private function eventsNotLoaded()
-    {
-        return is_null($this->events);
     }
 
     private function loadEvents()
