@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Basic calendar</title>
+        <style>
+body {
+  background: #eee; }
+
+h1, h3 {
+  color: #00c; }
+
+table {
+  background: #fff;
+  border-spacing: 0;
+  border-collapse: collapse; }
+  table td, table th {
+    padding: 7px; }
+  table th {
+    background: #eee;
+    color: #aaa;
+    font-weight: normal;
+    font-size: 0.8em; }
+  table tr#currentWeek td {
+    background: bisque;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000; }
+    table tr#currentWeek td:first-of-type {
+      border-left: 1px solid #000; }
+    table tr#currentWeek td:last-child {
+      border-right: 1px solid #000; }
+    table tr#currentWeek td#today {
+      color: #fff;
+      background: #000; }
+  table td.noDay {
+    background: #eee; }
+  table td strong[title] {
+    color: #f00; }
+
+        </style>
+    </head>
+    <body>
+        
+        <pre>&lt;?php
+$request = new \Scortes\Calendar\CalendarRequest();
+$request->dateStart = new DateTime('now - 2 month');
+$request->dateEnd = null; // use max date from events
+$request->events = [
+    "now - 1 month" => 'Day in previous month',
+    date('Y-n-') . 1 => 'First day in month',
+    date('Y-n-') . 16 => '16th day in month',
+    "now + 1 month" => 'Day in next month',
+];
+$request->addEvent(new DateTime('now + 2 months'), 'now + 2 months');
+
+$calendar = Scortes\Calendar\createCalendar($request);
+
+\Scortes\Calendar\HTML\monthsToTables(
+    $calendar,
+    array(
+        'hideMonthsWithoutEvent' => true,
+        'currentId' => array(
+            'table' => '',
+            'month' => 'currentMonth',
+            'week' => 'currentWeek',
+            'day' => 'today',
+        ),
+        'monthName' => function (Scortes\Calendar\Month\Month $month, $monthId) {
+            return "&lt;h3{$monthId}>Month {$month->monthNumber}/{$month->year}&lt;/h3>";
+        },
+        'day' => array(
+            'withEvent' => function ($event, $currentDay) {
+                return "&lt;strong title='{$event}'>{$currentDay}&lt;/strong>";
+            },
+            'withoutEvent' => function ($currentDay) {
+                return "&lt;strong>{$currentDay}&lt;/strong>";
+            },
+            'empty' => '&lt;td class="noDay">&nbsp;&lt;/td>'
+        )
+    )
+);
+
+// Events in current month
+\Scortes\Calendar\HTML\eventsToList(
+    $calendar,
+    "{$calendar->today->year}-{$calendar->today->monthNumber}",
+    function ($event, $key) {
+        return "{$key} - &lt;strong>{$event}&lt;/strong>";
+    }
+);
+        </pre>
+        
+        <h1>Calendar</h1>
+        
+        <h2>Today</h2>
+        <ul>
+            <li>Current date: 
+                <a href="#today"><strong>
+                    24.8.2015                </strong></a>
+            </li>
+            <li>Current month:
+                <a href="#currentMonth"><strong>8</strong></a>
+            </li>
+            <li>Current week:
+                <a href="#currentWeek"><strong>35</strong></a>
+            </li>
+        </ul>
+        
+        <h2>Basic calendar</h2>
+        <h3>Month 7/2015</h3><table  class=calendar><tr><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td><td><strong>1</strong></td><td><strong>2</strong></td><td><strong>3</strong></td><td><strong>4</strong></td><td><strong>5</strong></td></tr><tr><td><strong>6</strong></td><td><strong>7</strong></td><td><strong>8</strong></td><td><strong>9</strong></td><td><strong>10</strong></td><td><strong>11</strong></td><td><strong>12</strong></td></tr><tr><td><strong>13</strong></td><td><strong>14</strong></td><td><strong>15</strong></td><td><strong>16</strong></td><td><strong>17</strong></td><td><strong>18</strong></td><td><strong>19</strong></td></tr><tr><td><strong>20</strong></td><td><strong>21</strong></td><td><strong>22</strong></td><td><strong>23</strong></td><td><strong title='Day in previous month'>24</strong></td><td><strong>25</strong></td><td><strong>26</strong></td></tr><tr><td><strong>27</strong></td><td><strong>28</strong></td><td><strong>29</strong></td><td><strong>30</strong></td><td><strong>31</strong></td><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td></tr></table><h3 id=currentMonth>Month 8/2015</h3><table  class=calendar><tr><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td><td><strong title='First day in month'>1</strong></td><td><strong>2</strong></td></tr><tr><td><strong>3</strong></td><td><strong>4</strong></td><td><strong>5</strong></td><td><strong>6</strong></td><td><strong>7</strong></td><td><strong>8</strong></td><td><strong>9</strong></td></tr><tr><td><strong>10</strong></td><td><strong>11</strong></td><td><strong>12</strong></td><td><strong>13</strong></td><td><strong>14</strong></td><td><strong>15</strong></td><td><strong title='16th day in month'>16</strong></td></tr><tr><td><strong>17</strong></td><td><strong>18</strong></td><td><strong>19</strong></td><td><strong>20</strong></td><td><strong>21</strong></td><td><strong>22</strong></td><td><strong>23</strong></td></tr><tr id=currentWeek><td id=today><strong>24</strong></td><td><strong>25</strong></td><td><strong>26</strong></td><td><strong>27</strong></td><td><strong>28</strong></td><td><strong>29</strong></td><td><strong>30</strong></td></tr><tr><td><strong>31</strong></td><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td></tr></table><h3>Month 9/2015</h3><table  class=calendar><tr><td class="noDay">&nbsp;</td><td><strong>1</strong></td><td><strong>2</strong></td><td><strong>3</strong></td><td><strong>4</strong></td><td><strong>5</strong></td><td><strong>6</strong></td></tr><tr><td><strong>7</strong></td><td><strong>8</strong></td><td><strong>9</strong></td><td><strong>10</strong></td><td><strong>11</strong></td><td><strong>12</strong></td><td><strong>13</strong></td></tr><tr><td><strong>14</strong></td><td><strong>15</strong></td><td><strong>16</strong></td><td><strong>17</strong></td><td><strong>18</strong></td><td><strong>19</strong></td><td><strong>20</strong></td></tr><tr><td><strong>21</strong></td><td><strong>22</strong></td><td><strong>23</strong></td><td><strong title='Day in next month'>24</strong></td><td><strong>25</strong></td><td><strong>26</strong></td><td><strong>27</strong></td></tr><tr><td><strong>28</strong></td><td><strong>29</strong></td><td><strong>30</strong></td><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td></tr></table><h3>Month 10/2015</h3><table  class=calendar><tr><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td><td class="noDay">&nbsp;</td><td><strong>1</strong></td><td><strong>2</strong></td><td><strong>3</strong></td><td><strong>4</strong></td></tr><tr><td><strong>5</strong></td><td><strong>6</strong></td><td><strong>7</strong></td><td><strong>8</strong></td><td><strong>9</strong></td><td><strong>10</strong></td><td><strong>11</strong></td></tr><tr><td><strong>12</strong></td><td><strong>13</strong></td><td><strong>14</strong></td><td><strong>15</strong></td><td><strong>16</strong></td><td><strong>17</strong></td><td><strong>18</strong></td></tr><tr><td><strong>19</strong></td><td><strong>20</strong></td><td><strong>21</strong></td><td><strong>22</strong></td><td><strong>23</strong></td><td><strong title='now + 2 months'>24</strong></td><td><strong>25</strong></td></tr><tr><td><strong>26</strong></td><td><strong>27</strong></td><td><strong>28</strong></td><td><strong>29</strong></td><td><strong>30</strong></td><td><strong>31</strong></td><td class="noDay">&nbsp;</td></tr></table>
+
+        <h2>Timeline of events</h2>
+        <h3>Input event dates</h3>
+        <pre>now - 1 month, 2015-8-1, 2015-8-16, now + 1 month, 2015-10-24T12:17:46+02:00</pre>
+
+        <h3>All events</h3>
+        <ul><li><strong>Day in previous month</strong></strong></li><li><strong>First day in month</strong></strong></li><li><strong>16th day in month</strong></strong></li><li><strong>Day in next month</strong></strong></li><li><strong>now + 2 months</strong></strong></li></ul>        
+        <h3>Events in current month</h3>
+        <ul><li>2015-8 - <strong>First day in month</strong></strong></li><li>2015-8 - <strong>16th day in month</strong></strong></li></ul>        
+        <h2>Calendar Components</h2>
+        <ul>
+            <li><a href="months.html">Analyze months between two DateTimes</a></li>
+            <li><a href="events.html">Set/get events (trie separated by selected delimiter)</a></li>
+        </ul>
+        
+    </body>
+</html>
